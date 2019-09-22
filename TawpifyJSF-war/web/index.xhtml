@@ -1,85 +1,30 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Index</title>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        template="resources/templates/template.xhtml">
 
-        <h:outputStylesheet library="resources" name="css/master.css"/>
-    </h:head>
-    <h:body styleClass="ui-g-nopad">
-        <p:outputPanel id="container" styleClass="ui-g ui-g-nopad" >
+        <ui:define name="titulo">
+            Index
+        </ui:define>
 
-            <!-- NAVBAR -->
+        <ui:define name="contenidoBadge">
+            WOLOLOO
+        </ui:define>
 
-            <p:outputPanel id="navbar" styleClass="ui-g-12" style="background-color: #f39c12;">
-                <p:outputPanel styleClass="ui-g-2">
-                    <p:link outcome="index.xhtml" value="Tawpify" style="color: white; text-decoration: none; font-size: 1.2em"/>
-                </p:outputPanel>
+        <ui:define name="contenidoJumbotron">
+            <h:outputText style="font-size: 2em" value="Bienvenido de nuevo a TAWpify (JSF version)"/>
+            <p style="font-size: 1em">
+                Su gestor de música preferido (hogar de los cangrejos)
+            </p>
+        </ui:define>
 
-                <p:outputPanel styleClass="ui-g-10" style="text-align: right">
-                    <p:outputPanel class="badge" layout="inline">
-                        WOLOLO
-                    </p:outputPanel>
-                    <p:commandButton value="Accede" onclick="return false;"
-                                     styleClass="boton" style="margin-right: .5em;"/>
-                    <p:commandButton value="Registrate"  onclick="return false;"
-                                     styleClass="boton-transparente"/>
-                </p:outputPanel>
-            </p:outputPanel>
-
-            <!-- FIN NAVBAR -->
-
-            <!-- CONTENIDO -->
-
-            <p:outputPanel id="contenido" styleClass="ui-g-12 ui-g-nopad">
-
-                <!-- PANEL LATERAL -->
-
-                <p:outputPanel id="panelLateral" styleClass="ui-g-2" >
-                    <ul id="listaPanelLateral">
-                        <li style="border-top: none"><p:commandLink value="Canciones"/></li>
-                        <li><p:commandLink value="Albumes"/></li>
-                        <li><p:commandLink value="Artistas"/></li>
-                        <li><p:commandLink value="Generos"/></li>
-                        <li><p:commandLink value="Listas de reproduccion"/></li>
-                        <li><p:commandLink value="Usuarios"/></li>
-                    </ul>
-                </p:outputPanel>
-
-                <!-- FIN PANEL LATERAL -->
-
-                <!-- CONTENIDO PRINCIPAL -->
-
-                <p:outputPanel id="contenidoPrincipal" styleClass="ui-g-10">
-
-                    <!-- JUMBOTRON -->
-
-                    <p:outputPanel id="jumbotron" styleClass="ui-g-12" style="background-color: #303030">
-                        <h:outputText style="font-size: 2em" value="Bienvenido de nuevo a TAWpify (JSF version)"/>
-                        <p style="font-size: 1em">
-                            Su gestor de música preferido (hogar de los cangrejos)
-                        </p>
-                    </p:outputPanel>
-
-                    <!-- FIN JUMBOTRON -->
-
-                    <p:outputPanel styleClass="ui-g-12">
-                        <h1>
-                            WOLOLOOOOOO
-                        </h1>
-                    </p:outputPanel>
-
-                </p:outputPanel>
-
-                <!-- FIN CONTENIDO PRINCIPAL -->
-
-            </p:outputPanel>
-
-            <!-- FIN CONTENIDO -->
-
-        </p:outputPanel>
-    </h:body>
-</html>
-
+        <ui:define name="contenidoPrincipal">
+            <h1>
+                WOLOLOOOOOO
+            </h1>
+        </ui:define>
+    </ui:composition>
