@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="resources/templates/template.xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">
+        Generos
+    </ui:define>
+
+    <ui:define name="contenidoBadge">
+        WOLOLOO
+    </ui:define>
+
+    <ui:define name="contenidoJumbotron">
+        <h:outputText style="font-size: 2em" value="Generos"/>
+        <p style="font-size: 1em">
+            Aqui puedes acceder a todas generos registrados
+        </p>
+    </ui:define>
+
+    <ui:define name="contenidoPrincipal">
+
+        <!-- LISTA GENEROS -->
+
+        <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
+
+            <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+
+                <p:dataTable id="tablaGeneros" reflow="true" widgetVar="tablaGeneros">
+                    <f:facet name="header">
+                        <p:outputPanel style="display: flex; justify-content: space-between">
+                            <p:outputPanel layout="inline">
+                                <p:commandButton id="nuevoArtista" value="Nuevo genero"
+                                                 onclick="return false;" icon="fa fa-plus"/>
+                            </p:outputPanel>
+
+                            <p:outputPanel layout="inline">
+                                <p:inputText id="globalFilter" onkeyup="PF('tablaGeneros').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                            </p:outputPanel>
+
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column width="20%">
+                        <p:commandButton id="modificarArtista" value="Modificar" icon="fa-plus-pencil"
+                                                 onclick="return false;"/>
+                        <p:commandButton id="eliminarArtista" value="Eliminar" icon="fa-trash-o"
+                                                 onclick="return false;"/>
+                    </p:column>
+
+                    <p:column headerText="A">
+                        <h:outputText value="a" />
+                    </p:column>
+
+                    <p:column headerText="B">
+                        <h:outputText value="b" />
+                    </p:column>
+
+                    <p:column headerText="C">
+                        <h:outputText value="c" />
+                    </p:column>
+
+                    <p:column headerText="D">
+                        <h:outputText value="d" />
+                    </p:column>
+                </p:dataTable>
+
+            </p:outputPanel>
+
+
+        </p:outputPanel>
+
+        <!-- FIN LISTA GENEROS -->
+
+    </ui:define>
+</ui:composition>

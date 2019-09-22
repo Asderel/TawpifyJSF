@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="resources/templates/template.xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">
+        Nueva genero
+    </ui:define>
+
+    <ui:define name="contenidoBadge">
+        WOLOLOO
+    </ui:define>
+
+    <ui:define name="contenidoJumbotron">
+        <h:outputText style="font-size: 2em" value="Creacion de genero"/>
+        <p style="font-size: 1em">
+            Crea un genero nuevo
+        </p>
+    </ui:define>
+
+    <ui:define name="contenidoPrincipal">
+
+        <h:form id="formularioContenido">
+
+            <p:outputPanel styleClass="ui-g-2" />
+
+            <p:outputPanel styleClass="ui-g-8 ui-g-nopad">
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                        <p:outputLabel for="nombreInput" value="Nombre" styleClass="ui-g-12" style="padding-left: 0"/>
+                    </p:outputPanel>
+                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                        <p:inputText id="nombreInput" value="Nombre" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                        <p:outputLabel for="fechaInput" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0"/>
+                    </p:outputPanel>
+                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                        <p:calendar id="fechaInput" value="Fecha" required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad"/>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:commandButton value="Listo" onclick="return false;"
+                                     styleClass="boton-warning ui-g-12 ui-g-nopad"/>
+                </p:outputPanel>
+            </p:outputPanel>
+
+
+            <p:outputPanel styleClass="ui-g-2" />
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>
