@@ -54,9 +54,12 @@ body {
 .boton {
     background: none !important;
     background-color: #444 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
     border-color: #444;
     border-radius: 4px;
-    font-weight: 100;
+    font-weight: 400;
+    color: white;
 }
 
 .boton:hover {
@@ -66,8 +69,10 @@ body {
 
 .boton-transparente {
     margin-right: .2em;
-    background-color: #444;
     background: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
     border-color: #444;
     border-radius: 4px;
     font-weight: 400;
@@ -78,6 +83,41 @@ body {
     transition: .2s;
     background-color: #383838!important;
     color: white;
+}
+
+.boton-warning {
+    background: none !important;
+    background-color: #F39C12 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    border-color: #F39C12;
+    border-radius: 4px;
+    font-weight: 400;
+}
+
+.boton-warning:hover {
+    transition: .2s;
+    background-color: #d4860b!important;
+    border-color: #c87f0a!important;
+    color: white;
+}
+
+.boton-warning-transparente {
+    margin-right: .2em;
+    background: none !important;
+    background-color: transparent;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    border-color: #F39C12 !important;
+    border-radius: 4px !important;
+    font-weight: 400 !important;
+    color: #F39C12 !important;
+}
+
+.boton-warning-transparente:hover {
+    transition: .2s;
+    background-color: #F39C12!important;
+    color: white !important;
 }
 
 .badge {
