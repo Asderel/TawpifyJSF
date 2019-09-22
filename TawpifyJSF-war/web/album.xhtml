@@ -54,7 +54,7 @@
                         <p:commandButton id="escucharCancion" value="Escuchar" icon="fa-play-circle-o"
                                          onclick="return false;"/>
                         <p:commandButton id="incluirCancion" value="Incluir en lista" icon="fa-plus-circle"
-                                         onclick="return false;"/>
+                                         onclick="PF('modalIncluirAlbum').show(); return false;"/>
                         <p:commandButton id="modificarCancion" value="Modificar" icon="fa-plus-pencil"
                                          onclick="return false;"/>
                         <p:commandButton id="eliminarCancion" value="Eliminar" icon="fa-trash-o"
@@ -85,16 +85,18 @@
 
         <!-- FIN LISTA CANCIONES -->
 
-        <h:form id="formDialogoIncluirCancion">
+        <!-- MODALES -->
+
+        <h:form id="formDialogoIncluirAlbum">
             <p:dialog id="modalIncluirAlbum" widgetVar="modalIncluirAlbum" showEffect="fold" hideEffect="fold" styleClass="backgroud-modal">
-                <p:outputPanel id="cabeceraDialogo" styleClass="ui-g-12" style="color: white !important">
-                    <h:outputText value="¿En qué lista quieres incluirla?"/>
+                <p:outputPanel id="cabeceraDialogoIncluirAlbum" styleClass="ui-g-12" style="color: white !important">
+                    <h:outputText value="¿En qué lista quieres incluir este album?"/>
                 </p:outputPanel>
 
-                <p:outputPanel id="cuaerpoDialogo" styleClass="ui-g-12" style="color: white !important">
+                <p:outputPanel id="cuaerpoDialogoIncluirAlbum" styleClass="ui-g-12" style="color: white !important">
                     <p:outputPanel styleClass="ui-g-12">
-                        <p:outputLabel for="filtroListaReproduccion" value="Incluir cancion en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
-                        <p:selectOneMenu id="filtroListaReproduccion" styleClass="ui-g-12"
+                        <p:outputLabel for="filtroListaReproduccionIncluirAlbum" value="Incluir album completo en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
+                        <p:selectOneMenu id="filtroListaReproduccionIncluirAlbum" styleClass="ui-g-12"
                                          filter="true" filterMatchMode="contains">
                             <f:selectItem itemLabel="a" itemValue="1" />
                             <f:selectItem itemLabel="b" itemValue="2" />
@@ -106,7 +108,7 @@
 
                 </p:outputPanel>
 
-                <p:outputPanel id="pieDialogo" styleClass="ui-g-12" style="color: white !important">
+                <p:outputPanel id="pieDialogoIncluirAlbum" styleClass="ui-g-12" style="color: white !important">
                     <p:outputPanel styleClass="ui-g-12">
                         <p:commandButton value="Listo" onclick="return false;" style="color: white"
                                          styleClass="boton-warning ui-g-12"/>
@@ -114,6 +116,38 @@
                 </p:outputPanel>
             </p:dialog>
         </h:form>
+
+        <h:form id="formDialogoIncluirCancion">
+            <p:dialog id="modalIncluirCancion" widgetVar="modalIncluirAlbum" showEffect="fold" hideEffect="fold" styleClass="backgroud-modal">
+                <p:outputPanel id="cabeceraDialogoIncluirCancion" styleClass="ui-g-12" style="color: white !important">
+                    <h:outputText value="¿En qué lista quieres incluirla?"/>
+                </p:outputPanel>
+
+                <p:outputPanel id="cuaerpoDialogoIncluirCancion" styleClass="ui-g-12" style="color: white !important">
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:outputLabel for="filtroListaReproduccionIncluirCancion" value="Incluir cancion en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
+                        <p:selectOneMenu id="filtroListaReproduccionIncluirCancion" styleClass="ui-g-12"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="a" itemValue="1" />
+                            <f:selectItem itemLabel="b" itemValue="2" />
+                            <f:selectItem itemLabel="c" itemValue="3" />
+                            <f:selectItem itemLabel="d" itemValue="3" />
+                            <f:selectItem itemLabel="e" itemValue="3" />
+                        </p:selectOneMenu>
+                    </p:outputPanel>
+
+                </p:outputPanel>
+
+                <p:outputPanel id="pieDialogoIncluirCancion" styleClass="ui-g-12" style="color: white !important">
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:commandButton value="Listo" onclick="return false;" style="color: white"
+                                         styleClass="boton-warning ui-g-12"/>
+                    </p:outputPanel>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
+        <!-- FIN MODALES -->
 
     </ui:define>
 </ui:composition>

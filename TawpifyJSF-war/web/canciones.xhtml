@@ -72,7 +72,7 @@
 
             <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
 
-                <p:dataTable id="tablaCanciones" reflow="true"widgetVar="tablaCanciones">
+                <p:dataTable id="tablaCanciones" reflow="true" widgetVar="tablaCanciones">
                     <f:facet name="header">
                         <p:outputPanel style="display: flex; justify-content: space-between">
                             <p:outputPanel layout="inline">
@@ -89,13 +89,13 @@
 
                     <p:column width="20%">
                         <p:commandButton id="escucharCancion" value="Escuchar" icon="fa-play-circle-o"
-                                                 onclick="return false;"/>
+                                         onclick="return false;"/>
                         <p:commandButton id="incluirCancion" value="Incluir en lista" icon="fa-plus-circle"
-                                                 onclick="return false;"/>
+                                         onclick="return false;"/>
                         <p:commandButton id="modificarCancion" value="Modificar" icon="fa-plus-pencil"
-                                                 onclick="return false;"/>
+                                         onclick="return false;"/>
                         <p:commandButton id="eliminarCancion" value="Eliminar" icon="fa-trash-o"
-                                                 onclick="return false;"/>
+                                         onclick="return false;"/>
                     </p:column>
 
                     <p:column headerText="A">
@@ -121,6 +121,40 @@
         </p:outputPanel>
 
         <!-- FIN LISTA CANCIONES -->
+
+        <!-- MODALES -->
+
+        <h:form id="formDialogoIncluirCancion">
+            <p:dialog id="modalIncluirCancion" widgetVar="modalIncluirAlbum" showEffect="fold" hideEffect="fold" styleClass="backgroud-modal">
+                <p:outputPanel id="cabeceraDialogo" styleClass="ui-g-12" style="color: white !important">
+                    <h:outputText value="¿En qué lista quieres incluirla?"/>
+                </p:outputPanel>
+
+                <p:outputPanel id="cuaerpoDialogo" styleClass="ui-g-12" style="color: white !important">
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:outputLabel for="filtroListaReproduccion" value="Incluir cancion en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
+                        <p:selectOneMenu id="filtroListaReproduccion" styleClass="ui-g-12"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="a" itemValue="1" />
+                            <f:selectItem itemLabel="b" itemValue="2" />
+                            <f:selectItem itemLabel="c" itemValue="3" />
+                            <f:selectItem itemLabel="d" itemValue="3" />
+                            <f:selectItem itemLabel="e" itemValue="3" />
+                        </p:selectOneMenu>
+                    </p:outputPanel>
+
+                </p:outputPanel>
+
+                <p:outputPanel id="pieDialogo" styleClass="ui-g-12" style="color: white !important">
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:commandButton value="Listo" onclick="return false;" style="color: white"
+                                         styleClass="boton-warning ui-g-12"/>
+                    </p:outputPanel>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
+        <!-- FIN MODALES -->
 
     </ui:define>
 </ui:composition>
