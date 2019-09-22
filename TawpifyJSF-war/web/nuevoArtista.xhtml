@@ -9,7 +9,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="titulo">
-        Nueva cancion
+        Nueva artista
     </ui:define>
 
     <ui:define name="contenidoBadge">
@@ -17,9 +17,9 @@
     </ui:define>
 
     <ui:define name="contenidoJumbotron">
-        <h:outputText style="font-size: 2em" value="Creacion de cancion"/>
+        <h:outputText style="font-size: 2em" value="Creacion de artista"/>
         <p style="font-size: 1em">
-            Crea una nueva cancion
+            Crea un artista nuevo
         </p>
     </ui:define>
 
@@ -30,10 +30,6 @@
             <p:outputPanel styleClass="ui-g-2" />
 
             <p:outputPanel styleClass="ui-g-8 ui-g-nopad">
-
-                <p:outputPanel styleClass="ui-g-12">
-                    <h:outputText value="Informacion basica" style="font-size: 1.5em;"/>
-                </p:outputPanel>
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
@@ -50,40 +46,6 @@
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                         <p:calendar id="fechaInput" value="Fecha" required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad"/>
-                    </p:outputPanel>
-                </p:outputPanel>
-
-                <p:outputPanel styleClass="ui-g-12">
-                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:outputLabel for="artistas" value="Artistas" styleClass="ui-g-12" style="padding-left: 0"/>
-                    </p:outputPanel>
-
-                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:selectOneMenu id="artistas" effect="fade" styleClass="ui-g-12"
-                                         filter="true" filterMatchMode="contains">
-                            <f:selectItem itemLabel="a" itemValue="1" />
-                            <f:selectItem itemLabel="b" itemValue="2" />
-                            <f:selectItem itemLabel="c" itemValue="3" />
-                            <f:selectItem itemLabel="d" itemValue="3" />
-                            <f:selectItem itemLabel="e" itemValue="3" />
-                        </p:selectOneMenu>
-                    </p:outputPanel>
-                </p:outputPanel>
-
-                <p:outputPanel styleClass="ui-g-12">
-                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:outputLabel for="albumes" value="Albumes" styleClass="ui-g-12" style="padding-left: 0"/>
-                    </p:outputPanel>
-
-                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:selectOneMenu id="albumes" effect="fade" styleClass="ui-g-12"
-                                         filter="true" filterMatchMode="contains">
-                            <f:selectItem itemLabel="a" itemValue="1" />
-                            <f:selectItem itemLabel="b" itemValue="2" />
-                            <f:selectItem itemLabel="c" itemValue="3" />
-                            <f:selectItem itemLabel="d" itemValue="3" />
-                            <f:selectItem itemLabel="e" itemValue="3" />
-                        </p:selectOneMenu>
                     </p:outputPanel>
                 </p:outputPanel>
 
