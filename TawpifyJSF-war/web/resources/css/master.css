@@ -1,0 +1,91 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 22-Sep-2019, 19:37:24
+    Author     : Asde
+*/
+
+body {
+    background-color: #222222!important;
+    margin: 0;
+}
+
+#listaPanelLateral {
+    list-style: none;
+    padding: 0;
+}
+
+#listaPanelLateral > li{
+    padding: 1em 1em;
+    border-top: 1px solid #444;
+}
+
+#listaPanelLateral > li:hover{
+    transition: .2s;
+    background-color: #383838;
+}
+
+#listaPanelLateral > li > a{
+    text-decoration: none;
+    color: #00bc8c;
+    font-size: .9em;
+}
+
+#panelLateral {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#contenidoPrincipal {
+    padding: 0 15px;
+    color: white;
+}
+
+#jumbotron {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #303030;
+    padding: 16px 32px;
+}
+
+.boton {
+    background: none !important;
+    background-color: #444 !important;
+    border-color: #444;
+    border-radius: 4px;
+    font-weight: 100;
+}
+
+.boton:hover {
+    transition: .2s;
+    background-color: #383838!important;
+}
+
+.boton-transparente {
+    margin-right: .2em;
+    background-color: #444;
+    background: none !important;
+    border-color: #444;
+    border-radius: 4px;
+    font-weight: 400;
+    color: #444;
+}
+
+.boton-transparente:hover {
+    transition: .2s;
+    background-color: #383838!important;
+    color: white;
+}
+
+.badge {
+    color: white;
+    font-size: 60% !important;
+    font-weight: 700;
+    background-color: #444;
+    border-radius: 10rem;
+    margin-right: 2em;
+    padding: .25em .6em
+}
