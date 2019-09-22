@@ -9,7 +9,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="titulo">
-        Lista canciones
+        Lista albumes
     </ui:define>
 
     <ui:define name="contenidoBadge">
@@ -17,9 +17,9 @@
     </ui:define>
 
     <ui:define name="contenidoJumbotron">
-        <h:outputText style="font-size: 2em" value="Canciones"/>
+        <h:outputText style="font-size: 2em" value="Albumes"/>
         <p style="font-size: 1em">
-            Aqui puedes acceder a todas las canciones registradas y reproducirlas
+            Aqui puedes acceder a todos los albumes registrados
         </p>
     </ui:define>
 
@@ -48,53 +48,39 @@
                     </p:selectManyMenu>
                 </p:outputPanel>
 
-                <p:outputPanel styleClass="ui-g-6">
-                    <p:outputLabel for="filtroAlbumes" value="Filtra por album" styleClass="ui-g-12" style="padding-left: 0"/>
-                    <p:selectManyMenu id="filtroAlbumes" styleClass="ui-g-12" showCheckbox="true"
-                                      filter="true" filterMatchMode="contains" scrollHeight="80">
-                        <f:selectItem itemLabel="a" itemValue="1" />
-                        <f:selectItem itemLabel="b" itemValue="2" />
-                        <f:selectItem itemLabel="c" itemValue="3" />
-                        <f:selectItem itemLabel="d" itemValue="3" />
-                        <f:selectItem itemLabel="e" itemValue="3" />
-                    </p:selectManyMenu>
-                </p:outputPanel>
-
             </p:outputPanel>
 
             <!-- FIN FILTROS -->
 
         </p:outputPanel>
 
-        <!-- LISTA CANCIONES -->
+        <!-- LISTA ALBUMES -->
 
         <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
 
             <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
 
-                <p:dataTable id="tablaCanciones" reflow="true">
+                <p:dataTable id="tablaAlbumes" reflow="true">
                     <f:facet name="header">
                         <p:outputPanel style="display: flex; justify-content: space-between">
                             <p:outputPanel layout="inline">
-                                <p:commandButton id="nuevaCancion" value="Nueva cancion"
+                                <p:commandButton id="nuevoAlbum" value="Nuevo album"
                                                  onclick="return false;" icon="fa fa-plus"/>
                             </p:outputPanel>
 
                             <p:outputPanel layout="inline">
-                                <p:inputText id="globalFilter" onkeyup="PF('tablaCanciones').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('tablaAlbumes').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
                             </p:outputPanel>
 
                         </p:outputPanel>
                     </f:facet>
 
                     <p:column width="20%">
-                        <p:commandButton id="escucharCancion" value="Escuchar" icon="fa-play-circle-o"
+                        <p:commandButton id="verAlbum" value="Ver" icon="fa-eye"
                                                  onclick="return false;"/>
-                        <p:commandButton id="incluirCancion" value="Incluir en lista" icon="fa-plus-circle"
+                        <p:commandButton id="modificarAlbum" value="Modificar" icon="fa-plus-pencil"
                                                  onclick="return false;"/>
-                        <p:commandButton id="modificarCancion" value="Modificar" icon="fa-plus-pencil"
-                                                 onclick="return false;"/>
-                        <p:commandButton id="eliminarCancion" value="Eliminar" icon="fa-trash-o"
+                        <p:commandButton id="eliminarAlbum" value="Eliminar" icon="fa-trash-o"
                                                  onclick="return false;"/>
                     </p:column>
 
@@ -120,7 +106,7 @@
 
         </p:outputPanel>
 
-        <!-- FIN LISTA CANCIONES -->
+        <!-- FIN LISTA ALBUMES -->
 
     </ui:define>
 </ui:composition>

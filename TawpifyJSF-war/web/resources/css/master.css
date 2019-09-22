@@ -130,3 +130,7 @@ body {
     margin-right: 2em;
     padding: .25em .6em
 }
+
+.backgroud-modal {
+    background-color: #222222;
+}
