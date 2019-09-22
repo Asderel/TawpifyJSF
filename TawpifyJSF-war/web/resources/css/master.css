@@ -93,6 +93,7 @@ body {
     border-color: #F39C12;
     border-radius: 4px;
     font-weight: 400;
+    color: white;
 }
 
 .boton-warning:hover {
