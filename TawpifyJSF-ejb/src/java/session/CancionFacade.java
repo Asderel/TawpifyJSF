@@ -38,7 +38,7 @@ public class CancionFacade extends AbstractFacade<Cancion> {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT c FROM Cancion c");
 
-        if(a != null && !a.isEmpty() && al != null) {
+        if(a != null && !a.isEmpty() && al != null && !al.isEmpty()) {
             sb.append(" WHERE c.idAlbum IN :al OR c.idAlbum.idArtista IN :a");
         } else if(a != null && !a.isEmpty()) {
             sb.append(" WHERE c.idAlbum.idArtista IN :a");
@@ -48,7 +48,7 @@ public class CancionFacade extends AbstractFacade<Cancion> {
 
         Query q = em.createQuery(sb.toString());
 
-        if(a != null && !a.isEmpty() && al != null) {
+        if(a != null && !a.isEmpty() && al != null && !al.isEmpty()) {
             q.setParameter("al", al).setParameter("a", a);
         } else if(a != null && !a.isEmpty()) {
             q.setParameter("a", a);

@@ -29,132 +29,154 @@
 
             <!-- FILTROS -->
 
-            <p:outputPanel styleClass="ui-g-12">
-                <h:outputText value="Filtros" style="font-size: 1.5em; margin-right: 2em"/>
-                <p:commandButton value="Filtrar" icon="fa fa-search" onclick="return false;"
-                                 styleClass="boton-warning-transparente"/>
-            </p:outputPanel>
-
-            <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                <p:outputPanel styleClass="ui-g-6">
-                    <p:outputLabel for="filtroArtistas" value="Filtra por artista" styleClass="ui-g-12" style="padding-left: 0"/>
-                    <p:selectManyMenu id="filtroArtistas" styleClass="ui-g-12" showCheckbox="true"
-                                      filter="true" filterMatchMode="contains" scrollHeight="80">
-                        <f:selectItem itemLabel="a" itemValue="1" />
-                        <f:selectItem itemLabel="b" itemValue="2" />
-                        <f:selectItem itemLabel="c" itemValue="3" />
-                        <f:selectItem itemLabel="d" itemValue="3" />
-                        <f:selectItem itemLabel="e" itemValue="3" />
-                    </p:selectManyMenu>
+            <h:form styleClass="ui-g-12 ui-g-nopad" style="margin: 0">
+                <p:outputPanel styleClass="ui-g-12">
+                    <h:outputText value="Filtros" style="font-size: 1.5em; margin-right: 2em"/>
                 </p:outputPanel>
 
-                <p:outputPanel styleClass="ui-g-6">
-                    <p:outputLabel for="filtroAlbumes" value="Filtra por album" styleClass="ui-g-12" style="padding-left: 0"/>
-                    <p:selectManyMenu id="filtroAlbumes" styleClass="ui-g-12" showCheckbox="true"
-                                      filter="true" filterMatchMode="contains" scrollHeight="80">
-                        <f:selectItem itemLabel="a" itemValue="1" />
-                        <f:selectItem itemLabel="b" itemValue="2" />
-                        <f:selectItem itemLabel="c" itemValue="3" />
-                        <f:selectItem itemLabel="d" itemValue="3" />
-                        <f:selectItem itemLabel="e" itemValue="3" />
-                    </p:selectManyMenu>
+                <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                    <p:outputPanel styleClass="ui-g-6">
+                        <p:outputLabel for="filtroArtistas" value="Filtra por artista" styleClass="ui-g-12" style="padding-left: 0"/>
+                        <p:selectManyMenu id="filtroArtistas" styleClass="ui-g-12" showCheckbox="true"
+                                          filter="true" filterMatchMode="contains" scrollHeight="120" value="#{cancionesBean.idArtistasSeleccionados}">
+                            <f:selectItems value="#{cancionesBean.artistas}" var="artista" itemLabel="#{artista.nombre}" itemValue="#{artista.idArtista}"/>
+                        </p:selectManyMenu>
+                    </p:outputPanel>
+
+                    <p:outputPanel styleClass="ui-g-6">
+                        <p:outputLabel for="filtroAlbumes" value="Filtra por album" styleClass="ui-g-12" style="padding-left: 0"/>
+                        <p:selectManyMenu id="filtroAlbumes" styleClass="ui-g-12" showCheckbox="true"
+                                          filter="true" filterMatchMode="contains" scrollHeight="120" value="#{cancionesBean.idAlbumesSeleccionados}">
+                            <f:selectItems value="#{cancionesBean.albumes}" var="album" itemLabel="#{album.nombre}" itemValue="#{album.idAlbum}"/>
+                        </p:selectManyMenu>
+                    </p:outputPanel>
+
                 </p:outputPanel>
 
-            </p:outputPanel>
+                <p:outputPanel styleClass="ui-g-12" style="text-align: right">
+                    <p:commandButton value="Filtrar" icon="fa fa-search" action="#{cancionesBean.filtrar()}" update="@form formCanciones"
+                                     styleClass="boton-warning-transparente"/>
+                </p:outputPanel>
+            </h:form>
 
             <!-- FIN FILTROS -->
 
         </p:outputPanel>
 
-        <!-- LISTA CANCIONES -->
+        <h:form id="formCanciones" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
+            <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
 
-        <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
+                <p:outputPanel id="lista" styleClass="ui-g-12 ui-g-nopad">
 
-            <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                    <p:dataTable id="tablaCanciones" reflow="true" widgetVar="tablaCanciones" value="#{cancionesBean.canciones}" var="c">
+                        <f:facet name="header">
+                            <p:outputPanel style="display: flex; justify-content: space-between">
+                                <p:outputPanel layout="inline">
+                                    <p:button value="Nueva cancion" onclick="PF('dialogoCrear').show(); return null;" icon="fa fa-plus"/>
+                                </p:outputPanel>
 
-                <p:dataTable id="tablaCanciones" reflow="true" widgetVar="tablaCanciones">
-                    <f:facet name="header">
-                        <p:outputPanel style="display: flex; justify-content: space-between">
-                            <p:outputPanel layout="inline">
-                                <p:commandButton id="nuevaCancion" value="Nueva cancion"
-                                                 onclick="return false;" icon="fa fa-plus"/>
+                                <p:outputPanel layout="inline">
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaCanciones').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                </p:outputPanel>
+
                             </p:outputPanel>
+                        </f:facet>
 
-                            <p:outputPanel layout="inline">
-                                <p:inputText id="globalFilter" onkeyup="PF('tablaCanciones').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
-                            </p:outputPanel>
+                        <p:column width="5%" style="text-align: center">
+                            <a class="boton-warning-transparente fa fa-play-circle-o" target="_blank" href="#{c.url}" style="font-size: 2.5em"/>
+                        </p:column>
 
-                        </p:outputPanel>
-                    </f:facet>
+                        <p:column headerText="Artista" filterBy="#{c.idAlbum.idArtista.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{c.idAlbum.idArtista.nombre}" />
+                        </p:column>
 
-                    <p:column width="20%">
-                        <p:commandButton id="escucharCancion" value="Escuchar" icon="fa-play-circle-o"
-                                         onclick="return false;"/>
-                        <p:commandButton id="incluirCancion" value="Incluir en lista" icon="fa-plus-circle"
-                                         onclick="return false;"/>
-                        <p:commandButton id="modificarCancion" value="Modificar" icon="fa-plus-pencil"
-                                         onclick="return false;"/>
-                        <p:commandButton id="eliminarCancion" value="Eliminar" icon="fa-trash-o"
-                                         onclick="return false;"/>
-                    </p:column>
+                        <p:column headerText="Album" filterBy="#{c.idAlbum.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{c.idAlbum.nombre}" />
+                        </p:column>
 
-                    <p:column headerText="A">
-                        <h:outputText value="a" />
-                    </p:column>
+                        <p:column headerText="Nombre" filterBy="#{c.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{c.nombre}" />
+                        </p:column>
 
-                    <p:column headerText="B">
-                        <h:outputText value="b" />
-                    </p:column>
+                        <p:column headerText="Fecha salida" filterBy="#{cancionesBean.formatearFecha(c.fechaSalida)}" filterStyle="display: none">
+                            <h:outputText value="#{cancionesBean.formatearFecha(c.fechaSalida)}" />
+                        </p:column>
 
-                    <p:column headerText="C">
-                        <h:outputText value="c" />
-                    </p:column>
+                        <p:column width="15%" style="text-align: center">
+                            <p:commandButton id="botonIncluirCancion" icon="fa fa-circle" action="#{cancionesBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('incluirDialogo').show();"
+                                             update="incluirDialogo" style="margin-right: 1em" styleClass="boton-warning-transparente"/>
+                            <p:tooltip for="botonModificarCancion" value="Incluir cancion en lista de reproduccion" position="top"/>
 
-                    <p:column headerText="D">
-                        <h:outputText value="d" />
-                    </p:column>
-                </p:dataTable>
+                            <p:commandButton id="botonModificarCancion" icon="fa fa-pencil" action="#{cancionesBean.modificarCancion(c.idCancion)}"
+                                             style="margin-right: 1em" styleClass="boton-warning-transparente "/>
+                            <p:tooltip for="botonModificarCancion" value="Modificar cancion" position="top"/>
 
+                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarCancion" styleClass="boton-warning-transparente"
+                                             action="#{cancionesBean.eliminarCancion(c.idCancion)}" update="formCanciones"/>
+                            <p:tooltip for="botonEliminarCancion" value="Eliminar cancion" position="top" />
+                        </p:column>
+                    </p:dataTable>
+
+                </p:outputPanel>
             </p:outputPanel>
+        </h:form>
+
+        <!-- FIN LISTA GENEROS -->
 
 
-        </p:outputPanel>
+        <!-- DIALOGOS -->
 
-        <!-- FIN LISTA CANCIONES -->
-
-        <!-- MODALES -->
-
-        <h:form id="formDialogoIncluirCancion">
-            <p:dialog id="modalIncluirCancion" widgetVar="modalIncluirAlbum" showEffect="fold" hideEffect="fold" styleClass="backgroud-modal">
-                <p:outputPanel id="cabeceraDialogo" styleClass="ui-g-12" style="color: white !important">
-                    <h:outputText value="¿En qué lista quieres incluirla?"/>
+        <h:form id="crearDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
+            <p:dialog header="¿Para que album quieres crear la cancion?" widgetVar="dialogoCrear" showEffect="fold" hideEffect="fold">
+                <p:outputPanel styleClass="ui-g-12">
+                    <h:outputText value="Datos" />
                 </p:outputPanel>
 
-                <p:outputPanel id="cuaerpoDialogo" styleClass="ui-g-12" style="color: white !important">
+                <p:outputPanel styleClass="ui-g-12">
                     <p:outputPanel styleClass="ui-g-12">
-                        <p:outputLabel for="filtroListaReproduccion" value="Incluir cancion en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
-                        <p:selectOneMenu id="filtroListaReproduccion" styleClass="ui-g-12"
-                                         filter="true" filterMatchMode="contains">
-                            <f:selectItem itemLabel="a" itemValue="1" />
-                            <f:selectItem itemLabel="b" itemValue="2" />
-                            <f:selectItem itemLabel="c" itemValue="3" />
-                            <f:selectItem itemLabel="d" itemValue="3" />
-                            <f:selectItem itemLabel="e" itemValue="3" />
-                        </p:selectOneMenu>
-                    </p:outputPanel>
-
+                    <p:outputLabel for="filtroListaReproduccion" value="Incluir cancion en el album..." styleClass="ui-g-12" style="padding-left: 0"/>
+                    <p:selectOneMenu id="filtroListaReproduccion" styleClass="ui-g-12" value="#{cancionesBean.idAlbumSeleccionado}"
+                                     filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{cancionesBean.albumes}" var="album" itemLabel="#{album.nombre}" itemValue="#{album.idAlbum}"/>
+                    </p:selectOneMenu>
+                </p:outputPanel>
                 </p:outputPanel>
 
-                <p:outputPanel id="pieDialogo" styleClass="ui-g-12" style="color: white !important">
-                    <p:outputPanel styleClass="ui-g-12">
-                        <p:commandButton value="Listo" onclick="return false;" style="color: white"
-                                         styleClass="boton-warning ui-g-12"/>
-                    </p:outputPanel>
+                <p:outputPanel styleClass="ui-g-12" style="text-align: right">
+                    <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
+                              onclick="PF('dialogoCrear').hide(); return false;"/>
+
+                    <p:commandButton icon="fa fa-check" value="Listo" styleClass="boton-warning-transparente"
+                                     action="#{cancionesBean.crearCancion()}"/>
                 </p:outputPanel>
             </p:dialog>
         </h:form>
 
-        <!-- FIN MODALES -->
+        <h:form id="incluirDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
+            <p:dialog header="Modifica la cancion seleccionada" widgetVar="incluirDialogo" showEffect="fold" hideEffect="fold" >
+                <p:outputPanel styleClass="ui-g-12">
+                    <h:outputText value="¿En qué lista quieres incluirla?"/>
+                </p:outputPanel>
 
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:outputLabel for="filtroListaReproduccion" value="Incluir cancion en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
+                    <p:selectOneMenu id="filtroListaReproduccion" styleClass="ui-g-12" value="#{cancionesBean.idListaSeleccionada}"
+                                     filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{cancionesBean.listasReproduccion}" var="lista" itemLabel="#{lista.nombre}" itemValue="#{lista.idAlbum}"/>
+                    </p:selectOneMenu>
+                </p:outputPanel>
+
+
+                <p:outputPanel styleClass="ui-g-12" style="text-align: right">
+                    <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
+                              onclick="PF('dialogoModificar').hide(); return false;"/>
+
+                    <p:commandButton icon="fa fa-check" value="Listo" styleClass="boton-warning-transparente"
+                                     action="#{cancionesBean.incluirCancion()}" update="formCanciones @form" oncomplete="PF('dialogoModificar').hide()"/>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
+        <!-- FIN DIALOGOS -->
     </ui:define>
 </ui:composition>

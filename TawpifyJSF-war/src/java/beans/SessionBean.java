@@ -1,5 +1,7 @@
 package beans;
 
+import entities.Album;
+import entities.Cancion;
 import entities.Genero;
 import entities.Usuario;
 import javax.inject.Named;
@@ -19,8 +21,11 @@ public class SessionBean implements Serializable {
     private Usuario usuarioConectado;
     private Usuario usuarioSeleccinoado;
 
-    // Generos
-    private Genero generoSeleccinoado;
+    // Canciones
+    private Cancion cancionSeleccionada;
+
+    // Albumes
+    private Album albumSeleccionado;
 
     /**
      * Creates a new instance of SessionBean
@@ -65,11 +70,19 @@ public class SessionBean implements Serializable {
         this.usuarioSeleccinoado = usuarioSeleccinoado;
     }
 
-    public Genero getGeneroSeleccinoado() {
-        return generoSeleccinoado;
+    public Cancion getCancionSeleccionada() {
+        return cancionSeleccionada;
     }
 
-    public void setGeneroSeleccinoado(Genero generoSeleccinoado) {
-        this.generoSeleccinoado = generoSeleccinoado;
+    public void setCancionSeleccionada(Cancion cancionSeleccionada) {
+        this.cancionSeleccionada = cancionSeleccionada;
+    }
+
+    public Album getAlbumSeleccionado() {
+        return albumSeleccionado;
+    }
+
+    public void setAlbumSeleccionado(Album albumSeleccionado) {
+        this.albumSeleccionado = albumSeleccionado;
     }
 }
