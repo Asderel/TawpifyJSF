@@ -7,6 +7,7 @@ package beans;
 
 import entities.Usuario;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -45,6 +46,11 @@ public class ModificarUsuarioBean {
             this.u = new Usuario();
             this.admin = false;
         }
+    }
+
+    @PreDestroy
+    public void destroy() {
+        session.setUsuarioSeleccinoado(null);
     }
 
     public String modificarUsuario() {

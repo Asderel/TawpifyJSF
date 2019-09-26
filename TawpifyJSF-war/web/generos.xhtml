@@ -12,14 +12,10 @@
         Generos
     </ui:define>
 
-    <ui:define name="contenidoBadge">
-        WOLOLOO
-    </ui:define>
-
     <ui:define name="contenidoJumbotron">
         <h:outputText style="font-size: 2em" value="Generos"/>
         <p style="font-size: 1em">
-            Aqui puedes acceder a todas generos registrados
+            Aqui puedes acceder a todos los generos registrados
         </p>
     </ui:define>
 
@@ -27,55 +23,94 @@
 
         <!-- LISTA GENEROS -->
 
-        <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
+        <h:form id="formGeneros" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
+            <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
 
-            <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                <p:outputPanel id="lista" styleClass="ui-g-12 ui-g-nopad">
 
-                <p:dataTable id="tablaGeneros" reflow="true" widgetVar="tablaGeneros">
-                    <f:facet name="header">
-                        <p:outputPanel style="display: flex; justify-content: space-between">
-                            <p:outputPanel layout="inline">
-                                <p:commandButton id="nuevoArtista" value="Nuevo genero"
-                                                 onclick="return false;" icon="fa fa-plus"/>
+                    <p:dataTable id="tablaGeneros" reflow="true" widgetVar="tablaGeneros" value="#{generosBean.generos}" var="g">
+                        <f:facet name="header">
+                            <p:outputPanel style="display: flex; justify-content: space-between">
+                                <p:outputPanel layout="inline">
+                                    <p:button value="Nuevo genero" onclick="PF('dialogoCrear').show(); return null;" icon="fa fa-plus"/>
+                                </p:outputPanel>
+
+                                <p:outputPanel layout="inline">
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaGeneros').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                </p:outputPanel>
+
                             </p:outputPanel>
+                        </f:facet>
 
-                            <p:outputPanel layout="inline">
-                                <p:inputText id="globalFilter" onkeyup="PF('tablaGeneros').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
-                            </p:outputPanel>
+                        <p:column width="8%">
+                            <p:commandButton id="botonModificarGenero" icon="fa fa-pencil" action="#{generosBean.SeleccionarGenero(g.idGenero)}" oncomplete="PF('dialogoModificar').show();"
+                                             update="modificarDialogo" style="margin-right: 1em"/>
+                            <p:tooltip for="botonModificarGenero" value="Modificar genero" position="top"/>
 
-                        </p:outputPanel>
-                    </f:facet>
+                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarGenero"
+                                             action="#{generosBean.eliminarGenero(g.idGenero)}" update="formGeneros"/>
+                            <p:tooltip for="botonEliminarGenero" value="Eliminar genero" position="top"/>
+                        </p:column>
 
-                    <p:column width="20%">
-                        <p:commandButton id="modificarArtista" value="Modificar" icon="fa-plus-pencil"
-                                                 onclick="return false;"/>
-                        <p:commandButton id="eliminarArtista" value="Eliminar" icon="fa-trash-o"
-                                                 onclick="return false;"/>
-                    </p:column>
+                        <p:column headerText="Nombre" filterBy="#{g.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{g.nombre}" />
+                        </p:column>
+                    </p:dataTable>
 
-                    <p:column headerText="A">
-                        <h:outputText value="a" />
-                    </p:column>
-
-                    <p:column headerText="B">
-                        <h:outputText value="b" />
-                    </p:column>
-
-                    <p:column headerText="C">
-                        <h:outputText value="c" />
-                    </p:column>
-
-                    <p:column headerText="D">
-                        <h:outputText value="d" />
-                    </p:column>
-                </p:dataTable>
-
+                </p:outputPanel>
             </p:outputPanel>
-
-
-        </p:outputPanel>
+        </h:form>
 
         <!-- FIN LISTA GENEROS -->
 
+
+        <!-- DIALOGOS -->
+
+        <h:form id="crearDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
+            <p:dialog header="Crea un nuevo genero" widgetVar="dialogoCrear" showEffect="fold" hideEffect="fold">
+                <p:outputPanel styleClass="ui-g-12">
+                    <h:outputText value="Datos" />
+                </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:inputText id="nombreModificar" value="#{generosBean.nuevoGenero.nombre}" placeholder="Nombre" styleClass="ui-g-12"
+                                 required="true" requiredMessage="Campo obligatorio" />
+                </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12" style="text-align: right">
+                    <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
+                              onclick="PF('dialogoCrear').hide(); return false;"/>
+
+                    <p:commandButton icon="fa fa-check" value="Listo" styleClass="boton-warning-transparente"
+                                     action="#{generosBean.crearGenero()}" update="formGeneros @form" oncomplete="PF('dialogoCrear').hide()"/>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
+        <h:form id="modificarDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
+            <p:dialog header="Modifica el genero seleccionado" widgetVar="dialogoModificar" showEffect="fold" hideEffect="fold" >
+                <p:outputPanel styleClass="ui-g-12">
+                    <h:outputText value="Datos" />
+                </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:outputLabel for="nombreModificar" value="Nombre" />
+                    <p:inputText id="nombreModificar" value="#{generosBean.nuevoGenero.nombre}" placeholder="Nombre" styleClass="ui-g-12"
+                                 required="true" requiredMessage="Campo obligatorio" />
+                </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12" style="text-align: right">
+                    <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
+                              onclick="PF('dialogoModificar').hide(); return false;"/>
+
+                    <p:commandButton icon="fa fa-check" value="Listo" styleClass="boton-warning-transparente"
+                                     action="#{generosBean.modificarGenero()}" update="formGeneros @form" oncomplete="PF('dialogoModificar').hide()"/>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
+        <!-- FIN DIALOGOS -->
+
     </ui:define>
+
 </ui:composition>

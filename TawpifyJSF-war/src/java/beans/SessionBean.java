@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package beans;
 
+import entities.Genero;
 import entities.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -19,8 +15,12 @@ import javax.annotation.PostConstruct;
 @SessionScoped
 public class SessionBean implements Serializable {
 
+    // Usuarios
     private Usuario usuarioConectado;
     private Usuario usuarioSeleccinoado;
+
+    // Generos
+    private Genero generoSeleccinoado;
 
     /**
      * Creates a new instance of SessionBean
@@ -63,5 +63,13 @@ public class SessionBean implements Serializable {
 
     public void setUsuarioSeleccinoado(Usuario usuarioSeleccinoado) {
         this.usuarioSeleccinoado = usuarioSeleccinoado;
+    }
+
+    public Genero getGeneroSeleccinoado() {
+        return generoSeleccinoado;
+    }
+
+    public void setGeneroSeleccinoado(Genero generoSeleccinoado) {
+        this.generoSeleccinoado = generoSeleccinoado;
     }
 }

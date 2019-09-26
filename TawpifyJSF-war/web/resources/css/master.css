@@ -134,3 +134,26 @@ body {
 .backgroud-modal {
     background-color: #222222;
 }
+
+.ui-dialog {
+    background: #333333 !important;
+    color: white !important;
+    border: none;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+    color: white !important;
+    background: #333333 !important;
+    font-weight: 400 !important;
+    border-bottom: solid 1px #444444 !important;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    font-weight: 400 !important;
+    border-bottom: solid 1px #444444;
+
+}
+
+.ui-dialog .ui-dialog-content {
+    color: white !important;
+}

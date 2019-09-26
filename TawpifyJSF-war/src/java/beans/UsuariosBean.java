@@ -49,7 +49,7 @@ public class UsuariosBean {
 
     private void buscarUsuarios() {
         this.usuarios = uFacade.findAll();
-        this.usuarios = new ArrayList<>(usuarios);
+        this.usuariosFiltro = new ArrayList<>(usuarios);
     }
 
     public String verDetalleUsuario(Integer idUsuario) {
@@ -93,6 +93,14 @@ public class UsuariosBean {
 
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
+    }
+
+    public List<Usuario> getUsuariosFiltro() {
+        return usuariosFiltro;
+    }
+
+    public void setUsuariosFiltro(List<Usuario> usuariosFiltro) {
+        this.usuariosFiltro = usuariosFiltro;
     }
 
 }
