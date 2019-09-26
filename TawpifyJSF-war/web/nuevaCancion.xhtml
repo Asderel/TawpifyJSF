@@ -43,12 +43,12 @@
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:outputLabel for="fechaInput" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0" rendered="#{empty nuevaCancionBean.nuevaCancion.idCancion}"/>
+                        <p:outputLabel for="fechaInput" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
 
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:calendar id="fechaInput" value="#{nuevaCancionBean.nuevaCancion.fechaSalida}" mask="true" pattern="__-__-____"
+                        <p:calendar id="fechaInput" value="#{nuevaCancionBean.nuevaCancion.fechaSalida}" mask="true" pattern="dd-MM-yyyy"
                                     required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad"/>
                     </p:outputPanel>
                 </p:outputPanel>

@@ -82,16 +82,16 @@
                             <a class="boton-warning-transparente fa fa-play-circle-o" target="_blank" href="#{c.url}" style="font-size: 2.5em"/>
                         </p:column>
 
+                        <p:column headerText="Nombre" filterBy="#{c.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{c.nombre}" />
+                        </p:column>
+
                         <p:column headerText="Artista" filterBy="#{c.idAlbum.idArtista.nombre}" filterStyle="display: none">
                             <h:outputText value="#{c.idAlbum.idArtista.nombre}" />
                         </p:column>
 
                         <p:column headerText="Album" filterBy="#{c.idAlbum.nombre}" filterStyle="display: none">
                             <h:outputText value="#{c.idAlbum.nombre}" />
-                        </p:column>
-
-                        <p:column headerText="Nombre" filterBy="#{c.nombre}" filterStyle="display: none">
-                            <h:outputText value="#{c.nombre}" />
                         </p:column>
 
                         <p:column headerText="Fecha salida" filterBy="#{cancionesBean.formatearFecha(c.fechaSalida)}" filterStyle="display: none">

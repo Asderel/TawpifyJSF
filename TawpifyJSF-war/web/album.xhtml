@@ -12,139 +12,229 @@
         Album
     </ui:define>
 
-    <ui:define name="contenidoBadge">
-        WOLOLOO
-    </ui:define>
-
     <ui:define name="contenidoJumbotron">
-        <h:outputText style="font-size: 2em" value="Album EL COSO"/>
+        <h:outputText style="font-size: 2em" value="Album #{albumBean.album.nombre.toUpperCase()}"/>
         <p style="font-size: 1em">
-            Artista VIVALDI
+            <p:outputPanel styleClass="ui-g-12" layout="inline">
+                <p:autoUpdate />
+                Artista: #{albumBean.album.idArtista.nombre}
+            </p:outputPanel>
         </p>
         <p style="font-size: 1em">
-            Canciones 25 (anal)
+            <p:outputPanel styleClass="ui-g-12" layout="inline">
+                <p:autoUpdate />
+                Canciones: #{albumBean.album.cancionCollection.size()}
+            </p:outputPanel>
         </p>
-        <p:commandButton value="incluir en la lista" onclick="PF('modalIncluirAlbum').show(); return false;" styleClass="boton-warning-transparente"/>
+        <p:button value="incluir en lista..." onclick="PF('incluirAlbumDialogo').show(); return false;" styleClass="boton-warning-transparente"/>
     </ui:define>
 
     <ui:define name="contenidoPrincipal">
 
         <!-- LISTA CANCIONES -->
 
-        <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
+        <h:form id="formCanciones" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
+            <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
 
-            <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                <p:outputPanel id="lista" styleClass="ui-g-12 ui-g-nopad">
 
-                <p:dataTable id="tablaCanciones" reflow="true">
-                    <f:facet name="header">
-                        <p:outputPanel style="display: flex; justify-content: space-between">
-                            <p:outputPanel layout="inline">
-                                <p:commandButton id="nuevaCancion" value="Incluir nueva cancion"
-                                                 onclick="return false;" icon="fa fa-plus"/>
+                    <p:dataTable id="tablaCanciones" reflow="true" widgetVar="tablaCanciones" value="#{albumBean.album.cancionCollection}" var="c">
+                        <f:facet name="header">
+                            <p:outputPanel style="display: flex; justify-content: space-between">
+                                <p:outputPanel layout="inline">
+                                    <p:button value="Incluir cancion" onclick="PF('incluirCancionDialogo').show(); return false;" icon="fa fa-plus"/>
+                                </p:outputPanel>
+
+                                <p:outputPanel layout="inline">
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaCanciones').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                </p:outputPanel>
+
                             </p:outputPanel>
+                        </f:facet>
 
-                            <p:outputPanel layout="inline">
-                                <p:inputText id="globalFilter" onkeyup="PF('tablaCanciones').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
-                            </p:outputPanel>
+                        <p:column width="5%" style="text-align: center">
+                            <a class="boton-warning-transparente fa fa-play-circle-o" target="_blank" href="#{c.url}" style="font-size: 2.5em"/>
+                        </p:column>
 
-                        </p:outputPanel>
-                    </f:facet>
+                        <p:column headerText="Nombre" filterBy="#{c.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{c.nombre}" />
+                        </p:column>
 
-                    <p:column width="20%">
-                        <p:commandButton id="escucharCancion" value="Escuchar" icon="fa-play-circle-o"
-                                         onclick="return false;"/>
-                        <p:commandButton id="incluirCancion" value="Incluir en lista" icon="fa-plus-circle"
-                                         onclick="PF('modalIncluirAlbum').show(); return false;"/>
-                        <p:commandButton id="modificarCancion" value="Modificar" icon="fa-plus-pencil"
-                                         onclick="return false;"/>
-                        <p:commandButton id="eliminarCancion" value="Eliminar" icon="fa-trash-o"
-                                         onclick="return false;"/>
-                    </p:column>
+                        <p:column headerText="Artista" filterBy="#{c.idAlbum.idArtista.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{c.idAlbum.idArtista.nombre}" />
+                        </p:column>
 
-                    <p:column headerText="A">
-                        <h:outputText value="a" />
-                    </p:column>
+                        <p:column headerText="Album" filterBy="#{c.idAlbum.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{c.idAlbum.nombre}" />
+                        </p:column>
 
-                    <p:column headerText="B">
-                        <h:outputText value="b" />
-                    </p:column>
+                        <p:column headerText="Fecha salida" filterBy="#{albumBean.formatearFecha(c.fechaSalida)}" filterStyle="display: none">
+                            <h:outputText value="#{albumBean.formatearFecha(c.fechaSalida)}" />
+                        </p:column>
 
-                    <p:column headerText="C">
-                        <h:outputText value="c" />
-                    </p:column>
+                        <p:column width="15%" style="text-align: center">
+                            <p:commandButton id="botonIncluirCancion" icon="fa fa-plus-circle" action="#{albumBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('incluirDialogo').show();"
+                                             style="margin-right: 1em" styleClass="boton-warning-transparente" update="incluirCancionDialogo"/>
+                            <p:tooltip for="botonIncluirCancion" value="Incluir cancion en lista de reproduccion" position="top"/>
 
-                    <p:column headerText="D">
-                        <h:outputText value="d" />
-                    </p:column>
-                </p:dataTable>
+                            <p:commandButton id="botonModificarCancion" icon="fa fa-pencil-square-o" action="#{albumBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('modificarCancionDialogo').show()"
+                                             style="margin-right: 1em" styleClass="boton-warning-transparente" update="modificarCancionDialogo"/>
+                            <p:tooltip for="botonModificarCancion" value="Modificar cancion" position="top"/>
 
+                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarCancion" styleClass="boton-warning-transparente"
+                                             action="#{albumBean.eliminarCancion(c.idCancion)}" update="formCanciones"/>
+                            <p:tooltip for="botonEliminarCancion" value="Eliminar cancion" position="top" />
+                        </p:column>
+                    </p:dataTable>
+
+                </p:outputPanel>
             </p:outputPanel>
-
-
-        </p:outputPanel>
+        </h:form>
 
         <!-- FIN LISTA CANCIONES -->
-
-        <!-- MODALES -->
 
         <!-- DIALOGOS -->
 
         <h:form id="incluirDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
-            <p:dialog header="Modifica la album seleccionada" widgetVar="incluirDialogo" showEffect="fold" hideEffect="fold" >
-                <p:outputPanel styleClass="ui-g-12">
-                    <h:outputText value="¿En qué lista quieres incluirla?"/>
-                </p:outputPanel>
+            <p:dialog header="¿En qué lista quieres incluirla?" widgetVar="incluirDialogo" showEffect="fold" hideEffect="fold" >
 
                 <p:outputPanel styleClass="ui-g-12">
-                    <p:outputLabel for="filtroListaReproduccion" value="Incluir album en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
-                    <p:selectOneMenu id="filtroListaReproduccion" styleClass="ui-g-12" value="#{albumesBean.idListaSeleccionada}"
+                    <p:outputLabel for="listaReproduccionCancion" value="Incluir cancion en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
+                    <p:selectOneMenu id="listaReproduccionCancion" styleClass="ui-g-12" value="#{albumBean.idListaSeleccionada}"
                                      filter="true" filterMatchMode="contains">
-                        <f:selectItems value="#{albumesBean.listasReproduccion}" var="lista" itemLabel="#{lista.nombre}" itemValue="#{lista.idAlbum}"/>
+                        <f:selectItems value="#{albumBean.listasReproduccion}" var="lista" itemLabel="#{lista.nombre}" itemValue="#{lista.idListaReproduccion}"/>
                     </p:selectOneMenu>
+                </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12" style="text-align: right">
+                    <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
+                              onclick="PF('incluirDialogo').hide(); return false;"/>
+
+                    <p:commandButton icon="fa fa-check" value="Listo" styleClass="boton-warning-transparente"
+                                     action="#{albumBean.incluirCancion()}" update="formCanciones @form" oncomplete="PF('incluirDialogo').hide()"/>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
+        <h:form id="incluirAlbumDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
+            <p:dialog header="¿En qué lista quieres incluirlo?" widgetVar="incluirAlbumDialogo" showEffect="fold" hideEffect="fold" styleClass="backgroud-modal">
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:outputLabel for="listaReproduccionIncluirAlbum" value="Incluir album en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
+                    <p:selectOneMenu id="listaReproduccionIncluirAlbum" styleClass="ui-g-12" value="#{albumBean.idListaSeleccionada}"
+                                     filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{albumBean.listasReproduccion}" var="lista" itemLabel="#{lista.nombre}" itemValue="#{lista.idListaReproduccion}"/>
+                    </p:selectOneMenu>
+                </p:outputPanel>
+
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
+                              onclick="PF('incluirAlbumDialogo').hide(); return false;"/>
+
+                    <p:commandButton icon="fa fa-check" value="Listo" styleClass="boton-warning-transparente"
+                                     action="#{albumBean.incluirAlbum()}" update="formCanciones @form" oncomplete="PF('incluirAlbumDialogo').hide()"/>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
+        <h:form id="incluirCancionDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
+            <p:dialog header="Nueva cancion para el album" widgetVar="incluirCancionDialogo" showEffect="fold" hideEffect="fold" >
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:outputLabel for="nombreInput" value="Nombre" styleClass="ui-g-12" style="padding-left: 0"/>
+                        </p:outputPanel>
+
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:inputText id="nombreInput" value="#{albumBean.cancionSeleccionada.nombre}" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:outputLabel for="fechaInput" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0"/>
+                        </p:outputPanel>
+
+
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:calendar id="fechaInput" value="#{albumBean.cancionSeleccionada.fechaSalida}" mask="true" pattern="dd-MM-yyyy"
+                                        required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad"/>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:outputLabel for="urlInput" value="URL cancion" styleClass="ui-g-12" style="padding-left: 0"/>
+                        </p:outputPanel>
+
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:inputText id="urlInput" value="#{albumBean.cancionSeleccionada.url}" placeholder="URL" required="true" styleClass="ui-g-12"/>
+                        </p:outputPanel>
+                    </p:outputPanel>
                 </p:outputPanel>
 
 
                 <p:outputPanel styleClass="ui-g-12" style="text-align: right">
                     <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
-                              onclick="PF('dialogoModificar').hide(); return false;"/>
+                              onclick="PF('incluirCancionDialogo').hide(); return false;"/>
 
                     <p:commandButton icon="fa fa-check" value="Listo" styleClass="boton-warning-transparente"
-                                     action="#{albumesBean.incluirAlbum()}" update="formAlbumes @form" oncomplete="PF('dialogoModificar').hide()"/>
+                                     action="#{albumBean.crearCancion()}" update="formCanciones @form" oncomplete="PF('incluirCancionDialogo').hide()"/>
                 </p:outputPanel>
             </p:dialog>
         </h:form>
 
-        <h:form id="formDialogoIncluirCancion">
-            <p:dialog id="modalIncluirCancion" widgetVar="modalIncluirAlbum" showEffect="fold" hideEffect="fold" styleClass="backgroud-modal">
-                <p:outputPanel id="cabeceraDialogoIncluirCancion" styleClass="ui-g-12" style="color: white !important">
-                    <h:outputText value="¿En qué lista quieres incluirla?"/>
-                </p:outputPanel>
+        <h:form id="modificarCancionDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
+            <p:dialog header="Modifica la cancion seleccionada" widgetVar="modificarCancionDialogo" showEffect="fold" hideEffect="fold" >
 
-                <p:outputPanel id="cuaerpoDialogoIncluirCancion" styleClass="ui-g-12" style="color: white !important">
+                <p:outputPanel styleClass="ui-g-12">
                     <p:outputPanel styleClass="ui-g-12">
-                        <p:outputLabel for="filtroListaReproduccionIncluirCancion" value="Incluir cancion en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
-                        <p:selectOneMenu id="filtroListaReproduccionIncluirCancion" styleClass="ui-g-12"
-                                         filter="true" filterMatchMode="contains">
-                            <f:selectItem itemLabel="a" itemValue="1" />
-                            <f:selectItem itemLabel="b" itemValue="2" />
-                            <f:selectItem itemLabel="c" itemValue="3" />
-                            <f:selectItem itemLabel="d" itemValue="3" />
-                            <f:selectItem itemLabel="e" itemValue="3" />
-                        </p:selectOneMenu>
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:outputLabel for="nombreInputModificar" value="Nombre" styleClass="ui-g-12" style="padding-left: 0"/>
+                        </p:outputPanel>
+
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:inputText id="nombreInputModificar" value="#{albumBean.cancionSeleccionada.nombre}" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
+                        </p:outputPanel>
                     </p:outputPanel>
 
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:outputLabel for="fechaInputModificar" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0"/>
+                        </p:outputPanel>
+
+
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:calendar id="fechaInputModificar" value="#{albumBean.cancionSeleccionada.fechaSalida}" mask="true" pattern="dd-MM-yyyy"
+                                        required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad"/>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:outputLabel for="urlInputModificar" value="URL cancion" styleClass="ui-g-12" style="padding-left: 0"/>
+                        </p:outputPanel>
+
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:inputText id="urlInputModificar" value="#{albumBean.cancionSeleccionada.url}" placeholder="URL" required="true" styleClass="ui-g-12"/>
+                        </p:outputPanel>
+                    </p:outputPanel>
                 </p:outputPanel>
 
-                <p:outputPanel id="pieDialogoIncluirCancion" styleClass="ui-g-12" style="color: white !important">
-                    <p:outputPanel styleClass="ui-g-12">
-                        <p:commandButton value="Listo" onclick="return false;" style="color: white"
-                                         styleClass="boton-warning ui-g-12"/>
-                    </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12" style="text-align: right">
+                    <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
+                              onclick="PF('modificarCancionDialogo').hide(); return false;"/>
+
+                    <p:commandButton icon="fa fa-check" value="Listo" styleClass="boton-warning-transparente"
+                                     action="#{albumBean.modificarCancion()}" update="formCanciones @form" oncomplete="PF('modificarCancionDialogo').hide()"/>
                 </p:outputPanel>
             </p:dialog>
         </h:form>
 
-        <!-- FIN MODALES -->
+        <!-- FIN DIALOGOS -->
 
     </ui:define>
 </ui:composition>

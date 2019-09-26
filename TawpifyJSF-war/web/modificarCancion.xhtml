@@ -47,7 +47,7 @@
                     </p:outputPanel>
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:calendar id="fechaInput" value="#{modificarCancionBean.nuevaCancion.fechaSalida}" mask="true" pattern="__-__-____"
+                        <p:calendar id="fechaInput" value="#{modificarCancionBean.nuevaCancion.fechaSalida}" mask="true" pattern="dd-MM-yyyy"
                                     required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad" rendered="#{empty modificarCancionBean.nuevaCancion.idCancion}" />
                     </p:outputPanel>
                 </p:outputPanel>

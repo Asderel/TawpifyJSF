@@ -42,7 +42,6 @@ public class AlbumesBean {
     private List<String> idArtistasSeleccionados;
 
     private Album nuevoAlbum;
-    private Integer idAlbumSeleccionado;
 
     /**
      * Creates a new instance of AlbumesBean
@@ -56,7 +55,6 @@ public class AlbumesBean {
 
         this.idArtistasSeleccionados = new ArrayList<>();
         this.nuevoAlbum = new Album();
-        this.idAlbumSeleccionado = 0;
     }
 
     public void SeleccionarAlbum(Integer idAlbum) {
@@ -84,7 +82,7 @@ public class AlbumesBean {
     }
 
     public String verAlbum(Integer idAlbum) {
-        this.session.setAlbumSeleccionado(nuevoAlbum);
+        this.session.setAlbumSeleccionado(alFacade.find(idAlbum));
 
         return "album";
     }
