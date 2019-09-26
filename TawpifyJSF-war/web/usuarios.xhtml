@@ -12,10 +12,6 @@
         Usuarios
     </ui:define>
 
-    <ui:define name="contenidoBadge">
-        WOLOLOO
-    </ui:define>
-
     <ui:define name="contenidoJumbotron">
         <h:outputText style="font-size: 2em" value="Generos"/>
         <p style="font-size: 1em">
@@ -27,49 +23,59 @@
 
         <!-- LISTA GENEROS -->
 
-        <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
+        <h:form styleClass="ui-g-12 ui-g-nopad" style="margin:0">
+            <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
 
-            <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
 
-                <p:dataTable id="tablaUsuarios" reflow="true" widgetVar="tablaUsuarios">
-                    <f:facet name="header">
-                        <p:outputPanel style="display: flex; justify-content: space-between">
-                            <p:outputPanel layout="inline">
-                                <p:commandButton id="nuevoUsuario" value="Nuevo usuario"
-                                                 onclick="return false;" icon="fa fa-plus"/>
+                    <p:dataTable id="tablaUsuarios" reflow="true" widgetVar="tablaUsuarios" value="#{usuariosBean.usuarios}" var="u">
+                        <f:facet name="header">
+                            <p:outputPanel style="display: flex; justify-content: space-between">
+                                <p:outputPanel layout="inline">
+                                    <p:commandButton id="nuevoUsuario" value="Nuevo usuario"
+                                                     action="#{usuariosBean.nuevoUsuario()}" icon="fa fa-plus"/>
+                                </p:outputPanel>
+
+                                <p:outputPanel layout="inline">
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaUsuarios').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                </p:outputPanel>
+
                             </p:outputPanel>
+                        </f:facet>
 
-                            <p:outputPanel layout="inline">
-                                <p:inputText id="globalFilter" onkeyup="PF('tablaUsuarios').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
-                            </p:outputPanel>
+                        <p:column width="5%">
+                            <p:commandButton id="botonModificarUsuario" icon="fa fa-pencil"
+                                             action="#{usuariosBean.verDetalleUsuario(u.idUsuario)}"/>
+                            <p:tooltip for="botonModificarUsuario" value="Modificar usuario" position="top"/>
 
-                        </p:outputPanel>
-                    </f:facet>
+                            <p:commandButton id="botonEliminarUsuario" icon="fa fa-trash-o"
+                                             action="#{usuariosBean.eliminarUsuario(u.idUsuario)}" update="@form"/>
+                            <p:tooltip for="botonEliminarUsuario" value="Eliminar usuario" position="top"/>
+                        </p:column>
 
-                    <p:column width="20%">
-                        <p:commandButton id="modificarUsuario" value="Modificar" icon="fa-plus-pencil"
-                                                 onclick="return false;"/>
-                        <p:commandButton id="eliminarUsuario" value="Eliminar" icon="fa-trash-o"
-                                                 onclick="return false;"/>
-                    </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{u.nombre}" />
+                        </p:column>
 
-                    <p:column headerText="Nombre">
-                        <h:outputText value="a" />
-                    </p:column>
+                        <p:column headerText="Apodo">
+                            <h:outputText value="#{u.email}" />
+                        </p:column>
 
-                    <p:column headerText="Apodo">
-                        <h:outputText value="b" />
-                    </p:column>
+                        <p:column headerText="Email">
+                            <h:outputText value="#{empty u.apodo ? '' : u.apodo}" />
+                        </p:column>
 
-                    <p:column headerText="Email">
-                        <h:outputText value="c" />
-                    </p:column>
-                </p:dataTable>
+                        <p:column headerText="Email">
+                            <h:outputText value="#{u.administrador eq 1 ? 'SI' : 'NO'}" />
+                        </p:column>
+                    </p:dataTable>
+
+                </p:outputPanel>
+
 
             </p:outputPanel>
+        </h:form>
 
-
-        </p:outputPanel>
 
         <!-- FIN LISTA GENEROS -->
 

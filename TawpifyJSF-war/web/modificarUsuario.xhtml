@@ -9,17 +9,13 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="titulo">
-        Nueva usuario
-    </ui:define>
-
-    <ui:define name="contenidoBadge">
-        WOLOLOO
+        Modifica usuario
     </ui:define>
 
     <ui:define name="contenidoJumbotron">
         <h:outputText style="font-size: 2em" value="Creacion de Usuario"/>
         <p style="font-size: 1em">
-            Introduce tu email y contraseña para crear un usuario y empezar a usar Tawpify
+            Modifica el usuario seleccionado
         </p>
     </ui:define>
 
@@ -36,7 +32,7 @@
                         <p:outputLabel for="nombreInput" value="Nombre" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:inputText id="nombreInput" value="#{loginBean.u.nombre}" placeholder="Nombre" styleClass="ui-g-12"
+                        <p:inputText id="nombreInput" value="#{modificarUsuarioBean.u.nombre}" placeholder="Nombre" styleClass="ui-g-12"
                                      required="true" requiredMessage="Campo obligatorio" />
                     </p:outputPanel>
                 </p:outputPanel>
@@ -46,7 +42,7 @@
                         <p:outputLabel for="apodoInput" value="Apodo" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:inputText id="apodoInput" value="#{loginBean.u.apodo}" placeholder="Apodo" styleClass="ui-g-12"/>
+                        <p:inputText id="apodoInput" value="#{modificarUsuarioBean.u.apodo}" placeholder="Apodo" styleClass="ui-g-12"/>
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -55,7 +51,7 @@
                         <p:outputLabel for="emailInput" value="Email" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:inputText id="emailInput" value="#{loginBean.u.email}" placeholder="Email" styleClass="ui-g-12"
+                        <p:inputText id="emailInput" value="#{modificarUsuarioBean.u.email}" placeholder="Email" styleClass="ui-g-12"
                                      required="true" requiredMessage="Campo obligatorio"/>
                     </p:outputPanel>
                 </p:outputPanel>
@@ -65,7 +61,7 @@
                         <p:outputLabel for="passInput" value="Password" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:password id="passInput" value="#{loginBean.u.contrasena}"
+                        <p:password id="passInput" value="#{modificarUsuarioBean.u.contrasena}"
                                     feedback="true" required="true" requiredMessage="Campo obligatorio"/>
                     </p:outputPanel>
                 </p:outputPanel>
@@ -75,12 +71,17 @@
                         <p:outputLabel for="passInput" value="Password" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:selectBooleanCheckbox value="#{loginBean.admin}" itemLabel="Basic" required="true" requiredMessage="Campo obligatorio"/>
+                        <p:selectBooleanCheckbox value="#{modificarUsuarioBean.admin}" itemLabel="Administrador" required="true" requiredMessage="Campo obligatorio"/>
                     </p:outputPanel>
                 </p:outputPanel>
 
-                <p:outputPanel styleClass="ui-g-12">
-                    <p:commandButton value="Listo" action="#{loginBean.crearUsuario()}" update="@form"
+                <p:outputPanel styleClass="ui-g-12" rendered="#{!empty modificarUsuarioBean.u.idUsuario and modificarUsuarioBean.u.idUsuario ne 0}">
+                    <p:commandButton value="Listo" action="#{modificarUsuarioBean.modificarUsuario()}" update="@form"
+                                     styleClass="boton-warning ui-g-12 ui-g-nopad"/>
+                </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12" rendered="#{empty modificarUsuarioBean.u.idUsuario or modificarUsuarioBean.u.idUsuario eq 0}">
+                    <p:commandButton value="Listo" action="#{modificarUsuarioBean.creearUsuario()}" update="@form"
                                      styleClass="boton-warning ui-g-12 ui-g-nopad"/>
                 </p:outputPanel>
             </p:outputPanel>

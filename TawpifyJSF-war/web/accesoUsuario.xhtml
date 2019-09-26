@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="resources/templates/template.xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">
+        Nuevo usuario
+    </ui:define>
+
+    <ui:define name="contenidoJumbotron">
+        <h:outputText style="font-size: 2em" value="Creacion de Usuario"/>
+        <p style="font-size: 1em">
+            Introduce tu email y contraseña para acceder y empezar a usar Tawpify
+        </p>
+    </ui:define>
+
+    <ui:define name="contenidoPrincipal">
+
+        <h:form id="formularioContenido">
+
+            <p:outputPanel styleClass="ui-g-2" />
+
+            <p:outputPanel styleClass="ui-g-8 ui-g-nopad">
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                        <p:outputLabel for="emailInput" value="Email" styleClass="ui-g-12" style="padding-left: 0"/>
+                    </p:outputPanel>
+                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                        <p:inputText id="emailInput" value="#{accesoBean.nombre}" placeholder="Email" styleClass="ui-g-12"
+                                     required="true" requiredMessage="Campo obligatorio"/>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                        <p:outputLabel for="passInput" value="Password" styleClass="ui-g-12" style="padding-left: 0"/>
+                    </p:outputPanel>
+                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                        <p:password id="passInput" value="#{accesoBean.password}"
+                                    required="true" requiredMessage="Campo obligatorio"/>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:commandButton value="Acceder" action="#{accesoBean.acceder()}" update="@form"
+                                     styleClass="boton-warning ui-g-12 ui-g-nopad"/>
+                </p:outputPanel>
+            </p:outputPanel>
+
+
+            <p:outputPanel styleClass="ui-g-2" />
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

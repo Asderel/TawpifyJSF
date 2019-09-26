@@ -4,6 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
     <h:head>
         <title>
             <ui:insert name="titulo"/>
@@ -16,21 +17,31 @@
 
             <!-- NAVBAR -->
 
-            <p:outputPanel id="navbar" styleClass="ui-g-12" style="background-color: #f39c12;">
-                <p:outputPanel styleClass="ui-g-2">
-                    <p:link outcome="index.xhtml" value="Tawpify" style="color: white; text-decoration: none; font-size: 1.2em"/>
-                </p:outputPanel>
-
-                <p:outputPanel styleClass="ui-g-10" style="text-align: right">
-                    <p:outputPanel class="badge" layout="inline">
-                        <ui:insert name="contenidoBadge"/>
+            <h:form styleClass="ui-g-12 ui-g-nopad" style="margin: 0">
+                <p:outputPanel id="navbar" styleClass="ui-g-12" style="background-color: #f39c12;">
+                    <p:outputPanel styleClass="ui-g-2">
+                        <p:link outcome="index.xhtml" value="Tawpify" style="color: white; text-decoration: none; font-size: 1.2em"/>
                     </p:outputPanel>
-                    <p:commandButton value="Accede" onclick="return false;"
-                                     styleClass="boton" style="margin-right: .5em;"/>
-                    <p:commandButton value="Registrate"  onclick="return false;"
-                                     styleClass="boton-transparente"/>
+
+                    <p:outputPanel styleClass="ui-g-10" style="text-align: right">
+                        <p:outputPanel class="badge" layout="inline" rendered="#{not empty sessionBean.usuarioConectado}">
+                            #{empty sessionBean.usuarioConectado.apodo ? sessionBean.usuarioConectado.nombre : sessionBean.usuarioConectado.apodo}
+                        </p:outputPanel>
+
+                        <p:outputPanel layout="inline">
+
+                            <p:commandButton value="Accede" action="#{sessionBean.gotoAcceso() }"
+                                             styleClass="boton" style="margin-right: .5em;" rendered="#{empty sessionBean.usuarioConectado}"/>
+
+                            <p:commandButton value="Registrate" action="#{sessionBean.gotoLogin()}"
+                                             styleClass="boton-transparente" rendered="#{empty sessionBean.usuarioConectado}"/>
+
+                            <p:commandButton value="Salir" action="#{sessionBean.logout()}"
+                                             styleClass="boton-transparente" rendered="#{not empty sessionBean.usuarioConectado}" update="@all"/>
+                        </p:outputPanel>
+                    </p:outputPanel>
                 </p:outputPanel>
-            </p:outputPanel>
+            </h:form>
 
             <!-- FIN NAVBAR -->
 
@@ -40,7 +51,7 @@
 
                 <!-- PANEL LATERAL -->
 
-                <p:outputPanel id="panelLateral" styleClass="ui-g-2" >
+                <p:outputPanel id="panelLateral" styleClass="ui-g-2" rendered="#{not empty sessionBean.usuarioConectado}">
                     <ul id="listaPanelLateral">
                         <li style="border-top: none"><p:link value="Canciones" outcome="canciones.xhtml"/></li>
                         <li><p:link value="Albumes" outcome="albumes.xhtml"/></li>
@@ -55,7 +66,7 @@
 
                 <!-- CONTENIDO PRINCIPAL -->
 
-                <p:outputPanel id="contenidoPrincipal" styleClass="ui-g-10">
+                <p:outputPanel id="contenidoPrincipal" styleClass="#{not empty sessionBean.usuarioConectado ? 'ui-g-10' : 'ui-g-12'}">
 
                     <!-- JUMBOTRON -->
 

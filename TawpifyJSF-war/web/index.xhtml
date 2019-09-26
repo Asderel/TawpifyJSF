@@ -1,30 +1,24 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <ui:composition
-        xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:p="http://primefaces.org/ui"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        template="resources/templates/template.xhtml">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="resources/templates/template.xhtml"
+    xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
 
-        <ui:define name="titulo">
-            Index
-        </ui:define>
+    <ui:define name="titulo">
+        Index
+    </ui:define>
 
-        <ui:define name="contenidoBadge">
-            WOLOLOO
-        </ui:define>
+    <ui:define name="contenidoJumbotron">
+        <h:outputText style="font-size: 2em" value="Bienvenido de nuevo a TAWpify (JSF version)"/>
+        <p style="font-size: 1em">
+            #{empty sessionBean.usuarioConectado ? "Resgistrate o accede para empezar a disfrutar de la mejor musica" : "Su gestor de musica preferido"}
+        </p>
+    </ui:define>
 
-        <ui:define name="contenidoJumbotron">
-            <h:outputText style="font-size: 2em" value="Bienvenido de nuevo a TAWpify (JSF version)"/>
-            <p style="font-size: 1em">
-                Su gestor de música preferido (hogar de los cangrejos)
-            </p>
-        </ui:define>
-
-        <ui:define name="contenidoPrincipal">
-            <h1>
-                WOLOLOOOOOO
-            </h1>
-        </ui:define>
-    </ui:composition>
+    <ui:define name="contenidoPrincipal">
+    </ui:define>
+</ui:composition>
