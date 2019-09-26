@@ -42,8 +42,12 @@
                             </p:outputPanel>
                         </f:facet>
 
+                        <p:column headerText="Nombre" filterBy="#{g.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{g.nombre}" />
+                        </p:column>
+
                         <p:column width="8%">
-                            <p:commandButton id="botonModificarGenero" icon="fa fa-pencil" action="#{generosBean.SeleccionarGenero(g.idGenero)}" oncomplete="PF('dialogoModificar').show();"
+                            <p:commandButton id="botonModificarGenero" icon="fa fa-pencil-square-o" action="#{generosBean.SeleccionarGenero(g.idGenero)}" oncomplete="PF('dialogoModificar').show();"
                                              update="modificarDialogo" style="margin-right: 1em"/>
                             <p:tooltip for="botonModificarGenero" value="Modificar genero" position="top"/>
 
@@ -52,9 +56,6 @@
                             <p:tooltip for="botonEliminarGenero" value="Eliminar genero" position="top"/>
                         </p:column>
 
-                        <p:column headerText="Nombre" filterBy="#{g.nombre}" filterStyle="display: none">
-                            <h:outputText value="#{g.nombre}" />
-                        </p:column>
                     </p:dataTable>
 
                 </p:outputPanel>

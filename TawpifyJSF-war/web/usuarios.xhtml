@@ -43,16 +43,6 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column width="8%">
-                            <p:commandButton id="botonModificarUsuario" icon="fa fa-pencil"
-                                             action="#{usuariosBean.verDetalleUsuario(u.idUsuario)}" style="margin-right: 1em"/>
-                            <p:tooltip for="botonModificarUsuario" value="Modificar usuario" position="top"/>
-
-                            <p:commandButton id="botonEliminarUsuario" icon="fa fa-trash-o"
-                                             action="#{usuariosBean.eliminarUsuario(u.idUsuario)}" update="@form"/>
-                            <p:tooltip for="botonEliminarUsuario" value="Eliminar usuario" position="top"/>
-                        </p:column>
-
                         <p:column headerText="Nombre" filterBy="#{u.nombre}" filterStyle="display: none">
                             <h:outputText value="#{u.nombre}" />
                         </p:column>
@@ -67,6 +57,16 @@
 
                         <p:column headerText="Email" filterBy="#{u.administrador}" filterStyle="display: none">
                             <h:outputText value="#{u.administrador eq 1 ? 'SI' : 'NO'}" />
+                        </p:column>
+
+                        <p:column width="8%">
+                            <p:commandButton id="botonModificarUsuario" icon="fa fa-pencil-square-o"
+                                             action="#{usuariosBean.verDetalleUsuario(u.idUsuario)}" style="margin-right: 1em"/>
+                            <p:tooltip for="botonModificarUsuario" value="Modificar usuario" position="top"/>
+
+                            <p:commandButton id="botonEliminarUsuario" icon="fa fa-trash-o"
+                                             action="#{usuariosBean.eliminarUsuario(u.idUsuario)}" update="@form"/>
+                            <p:tooltip for="botonEliminarUsuario" value="Eliminar usuario" position="top"/>
                         </p:column>
                     </p:dataTable>
 

@@ -9,19 +9,19 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="titulo">
-        Nueva cancion
+        Nuevo album
     </ui:define>
 
     <ui:define name="contenidoJumbotron">
-        <h:outputText style="font-size: 2em" value="Creacion de cancion"/>
+        <h:outputText style="font-size: 2em" value="Creacion de album"/>
         <p style="font-size: 1em">
-            Crea una nueva cancion
+            Crea un nuevo album
         </p>
     </ui:define>
 
     <ui:define name="contenidoPrincipal">
 
-        <h:form id="formularioContenido" >
+        <h:form styleClass="ui-g-12 ui-g-nopad" style="margin: 0">
 
             <p:outputPanel styleClass="ui-g-2" />
 
@@ -35,59 +35,47 @@
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                         <p:outputLabel for="nombreInput" value="Nombre" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
-
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:inputText id="nombreInput" value="#{nuevaCancionBean.nuevaCancion.nombre}" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
+                        <p:inputText id="nombreInput" value="#{modificarAlbumBean.nuevoAlbum.nombre}" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
                     </p:outputPanel>
                 </p:outputPanel>
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:outputLabel for="fechaInput" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0" rendered="#{empty nuevaCancionBean.nuevaCancion.idCancion}"/>
+                        <p:outputLabel for="fechaInput" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
-
-
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:calendar id="fechaInput" value="#{nuevaCancionBean.nuevaCancion.fechaSalida}" mask="true" pattern="__-__-____"
-                                    required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad"/>
+                        <p:calendar id="fechaInput" value="#{modificarAlbumBean.nuevoAlbum.fechaSalida}" required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad" mask="true" pattern="__-__-____"/>
                     </p:outputPanel>
                 </p:outputPanel>
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:outputLabel for="urlInput" value="URL cancion" styleClass="ui-g-12" style="padding-left: 0"/>
+                        <p:outputLabel for="artistas" value="Artistas" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:inputText id="urlInput" value="#{nuevaCancionBean.nuevaCancion.url}" placeholder="URL" required="true" styleClass="ui-g-12"/>
+                        <p:selectOneMenu id="artistas" effect="fade" styleClass="ui-g-12" filter="true" filterMatchMode="contains" value="#{modificarAlbumBean.idArtistaSeleccionado}">
+                            <f:selectItems value="#{modificarAlbumBean.artistas}" var="artista" itemLabel="#{artista.nombre}" itemValue="#{artista.idArtista}"/>
+                        </p:selectOneMenu>
                     </p:outputPanel>
                 </p:outputPanel>
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:outputLabel for="artistas" value="Artistas colaboradores" styleClass="ui-g-12" style="padding-left: 0"/>
+                        <p:outputLabel for="generos" value="Generos" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:selectManyMenu id="artistas" styleClass="ui-g-12" showCheckbox="true"
-                                          filter="true" filterMatchMode="contains" scrollHeight="120" value="#{nuevaCancionBean.idArtistasSeleccionados}">
-                            <f:selectItems value="#{nuevaCancionBean.artistas}" var="artista" itemLabel="#{artista.nombre}" itemValue="#{artista.idArtista}"/>
+                        <p:selectManyMenu id="generos" styleClass="ui-g-12" scrollHeight="120"
+                                         filter="true" filterMatchMode="contains"  value="#{modificarAlbumBean.idGenerosSeleccionados}">
+                            <f:selectItems value="#{modificarAlbumBean.generos}" var="genero" itemLabel="#{genero.nombre}" itemValue="#{genero.idGenero}"/>
                         </p:selectManyMenu>
                     </p:outputPanel>
                 </p:outputPanel>
 
                 <p:outputPanel styleClass="ui-g-12">
-                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:outputLabel for="nombreAlbumInput" value="Album al que pertenecera la cancion" styleClass="ui-g-12" style="padding-left: 0"/>
-                    </p:outputPanel>
-
-                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:inputText id="nombreAlbumInput" value="#{nuevaCancionBean.albumSeleccionado.nombre}" placeholder="Album" required="true" styleClass="ui-g-12" disabled="true"/>
-                    </p:outputPanel>
-                </p:outputPanel>
-
-                <p:outputPanel styleClass="ui-g-12">
-                    <p:commandButton value="Listo" action="#{nuevaCancionBean.modificarCancion()}"
+                    <p:commandButton value="Listo" action="#{modificarAlbumBean.modificarAlbum()}"
                                      styleClass="boton-warning ui-g-12 ui-g-nopad"/>
                 </p:outputPanel>
             </p:outputPanel>

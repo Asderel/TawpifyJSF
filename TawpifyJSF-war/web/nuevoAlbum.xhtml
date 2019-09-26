@@ -12,10 +12,6 @@
         Nuevo album
     </ui:define>
 
-    <ui:define name="contenidoBadge">
-        WOLOLOO
-    </ui:define>
-
     <ui:define name="contenidoJumbotron">
         <h:outputText style="font-size: 2em" value="Creacion de album"/>
         <p style="font-size: 1em">
@@ -25,7 +21,7 @@
 
     <ui:define name="contenidoPrincipal">
 
-        <h:form id="formularioContenido">
+        <h:form styleClass="ui-g-12 ui-g-nopad" style="margin: 0">
 
             <p:outputPanel styleClass="ui-g-2" />
 
@@ -40,7 +36,7 @@
                         <p:outputLabel for="nombreInput" value="Nombre" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:inputText id="nombreInput" value="Nombre" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
+                        <p:inputText id="nombreInput" value="#{nuevoAlbumBean.nuevoAlbum.nombre}" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -49,7 +45,7 @@
                         <p:outputLabel for="fechaInput" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:calendar id="fechaInput" value="Fecha" required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad"/>
+                        <p:calendar id="fechaInput" value="#{nuevoAlbumBean.nuevoAlbum.fechaSalida}" required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad" mask="true" pattern="__-__-____"/>
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -59,19 +55,27 @@
                     </p:outputPanel>
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:selectOneMenu id="artistas" effect="fade" styleClass="ui-g-12"
-                                         filter="true" filterMatchMode="contains">
-                            <f:selectItem itemLabel="a" itemValue="1" />
-                            <f:selectItem itemLabel="b" itemValue="2" />
-                            <f:selectItem itemLabel="c" itemValue="3" />
-                            <f:selectItem itemLabel="d" itemValue="3" />
-                            <f:selectItem itemLabel="e" itemValue="3" />
+                        <p:selectOneMenu id="artistas" effect="fade" styleClass="ui-g-12" filter="true" filterMatchMode="contains" value="#{nuevoAlbumBean.idArtistaSeleccionado}">
+                            <f:selectItems value="#{nuevoAlbumBean.artistas}" var="artista" itemLabel="#{artista.nombre}" itemValue="#{artista.idArtista}"/>
                         </p:selectOneMenu>
                     </p:outputPanel>
                 </p:outputPanel>
 
                 <p:outputPanel styleClass="ui-g-12">
-                    <p:commandButton value="Listo" onclick="return false;"
+                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                        <p:outputLabel for="generos" value="Generos" styleClass="ui-g-12" style="padding-left: 0"/>
+                    </p:outputPanel>
+
+                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                        <p:selectManyMenu id="generos" styleClass="ui-g-12" scrollHeight="120"
+                                         filter="true" filterMatchMode="contains"  value="#{nuevoAlbumBean.idGenerosSeleccionados}">
+                            <f:selectItems value="#{nuevoAlbumBean.generos}" var="genero" itemLabel="#{genero.nombre}" itemValue="#{genero.idGenero}"/>
+                        </p:selectManyMenu>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:commandButton value="Listo" action="#{nuevoAlbumBean.modificarAlbum()}"
                                      styleClass="boton-warning ui-g-12 ui-g-nopad"/>
                 </p:outputPanel>
             </p:outputPanel>

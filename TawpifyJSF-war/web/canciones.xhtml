@@ -12,10 +12,6 @@
         Lista canciones
     </ui:define>
 
-    <ui:define name="contenidoBadge">
-        WOLOLOO
-    </ui:define>
-
     <ui:define name="contenidoJumbotron">
         <h:outputText style="font-size: 2em" value="Canciones"/>
         <p style="font-size: 1em">
@@ -107,7 +103,7 @@
                                              update="incluirDialogo" style="margin-right: 1em" styleClass="boton-warning-transparente"/>
                             <p:tooltip for="botonModificarCancion" value="Incluir cancion en lista de reproduccion" position="top"/>
 
-                            <p:commandButton id="botonModificarCancion" icon="fa fa-pencil" action="#{cancionesBean.modificarCancion(c.idCancion)}"
+                            <p:commandButton id="botonModificarCancion" icon="fa fa-pencil-square-o" action="#{cancionesBean.modificarCancion(c.idCancion)}"
                                              style="margin-right: 1em" styleClass="boton-warning-transparente "/>
                             <p:tooltip for="botonModificarCancion" value="Modificar cancion" position="top"/>
 

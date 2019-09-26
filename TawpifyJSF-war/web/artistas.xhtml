@@ -40,18 +40,18 @@
                             </p:outputPanel>
                         </f:facet>
 
+                        <p:column headerText="Nombre" filterBy="#{a.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{a.nombre}" />
+                        </p:column>
+
                         <p:column width="8%">
-                            <p:commandButton id="botonModificarArtista" icon="fa fa-pencil" action="#{artistasBean.SeleccionarArtista(a.idArtista)}" oncomplete="PF('dialogoModificar').show();"
+                            <p:commandButton id="botonModificarArtista" icon="fa fa-pencil-square-o" action="#{artistasBean.SeleccionarArtista(a.idArtista)}" oncomplete="PF('dialogoModificar').show();"
                                              update="modificarDialogo" style="margin-right: 1em"/>
                             <p:tooltip for="botonModificarArtista" value="Modificar artista" position="top"/>
 
                             <p:commandButton icon="fa fa-trash-o" id="botonEliminarArtista"
                                              action="#{artistasBean.eliminarArtista(a.idArtista)}" update="formArtistas"/>
                             <p:tooltip for="botonEliminarArtista" value="Eliminar artista" position="top"/>
-                        </p:column>
-
-                        <p:column headerText="Nombre" filterBy="#{a.nombre}" filterStyle="display: none">
-                            <h:outputText value="#{a.nombre}" />
                         </p:column>
                     </p:dataTable>
 

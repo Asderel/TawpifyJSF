@@ -87,32 +87,29 @@
 
         <!-- MODALES -->
 
-        <h:form id="formDialogoIncluirAlbum">
-            <p:dialog id="modalIncluirAlbum" widgetVar="modalIncluirAlbum" showEffect="fold" hideEffect="fold" styleClass="backgroud-modal">
-                <p:outputPanel id="cabeceraDialogoIncluirAlbum" styleClass="ui-g-12" style="color: white !important">
-                    <h:outputText value="¿En qué lista quieres incluir este album?"/>
+        <!-- DIALOGOS -->
+
+        <h:form id="incluirDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
+            <p:dialog header="Modifica la album seleccionada" widgetVar="incluirDialogo" showEffect="fold" hideEffect="fold" >
+                <p:outputPanel styleClass="ui-g-12">
+                    <h:outputText value="¿En qué lista quieres incluirla?"/>
                 </p:outputPanel>
 
-                <p:outputPanel id="cuaerpoDialogoIncluirAlbum" styleClass="ui-g-12" style="color: white !important">
-                    <p:outputPanel styleClass="ui-g-12">
-                        <p:outputLabel for="filtroListaReproduccionIncluirAlbum" value="Incluir album completo en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
-                        <p:selectOneMenu id="filtroListaReproduccionIncluirAlbum" styleClass="ui-g-12"
-                                         filter="true" filterMatchMode="contains">
-                            <f:selectItem itemLabel="a" itemValue="1" />
-                            <f:selectItem itemLabel="b" itemValue="2" />
-                            <f:selectItem itemLabel="c" itemValue="3" />
-                            <f:selectItem itemLabel="d" itemValue="3" />
-                            <f:selectItem itemLabel="e" itemValue="3" />
-                        </p:selectOneMenu>
-                    </p:outputPanel>
-
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:outputLabel for="filtroListaReproduccion" value="Incluir album en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
+                    <p:selectOneMenu id="filtroListaReproduccion" styleClass="ui-g-12" value="#{albumesBean.idListaSeleccionada}"
+                                     filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{albumesBean.listasReproduccion}" var="lista" itemLabel="#{lista.nombre}" itemValue="#{lista.idAlbum}"/>
+                    </p:selectOneMenu>
                 </p:outputPanel>
 
-                <p:outputPanel id="pieDialogoIncluirAlbum" styleClass="ui-g-12" style="color: white !important">
-                    <p:outputPanel styleClass="ui-g-12">
-                        <p:commandButton value="Listo" onclick="return false;" style="color: white"
-                                         styleClass="boton-warning ui-g-12"/>
-                    </p:outputPanel>
+
+                <p:outputPanel styleClass="ui-g-12" style="text-align: right">
+                    <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
+                              onclick="PF('dialogoModificar').hide(); return false;"/>
+
+                    <p:commandButton icon="fa fa-check" value="Listo" styleClass="boton-warning-transparente"
+                                     action="#{albumesBean.incluirAlbum()}" update="formAlbumes @form" oncomplete="PF('dialogoModificar').hide()"/>
                 </p:outputPanel>
             </p:dialog>
         </h:form>
