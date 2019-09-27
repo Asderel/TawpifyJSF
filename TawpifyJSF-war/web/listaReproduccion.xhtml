@@ -40,16 +40,16 @@
 
                     <p:dataTable id="tablaCanciones" reflow="true" widgetVar="tablaCanciones" value="#{listaReproduccionBean.lista.cancionCollection}" var="c">
                         <f:facet name="header">
-                            <p:outputPanel style="text-align: right">
+                            <p:outputPanel style="text-align: right; margin-bottom: .5em">
                                 <p:outputPanel layout="inline">
-                                    <p:inputText id="globalFilter" onkeyup="PF('tablaCanciones').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaCanciones').filter()" style="width: 15em" placeholder="Filtra en la tabla"/>
                                 </p:outputPanel>
 
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column width="5%" style="text-align: center">
-                            <a class="boton-warning-transparente fa fa-play-circle-o" target="_blank" href="#{c.url}" style="font-size: 2.5em"/>
+                        <p:column width="10%" style="text-align: center">
+                            <a class="boton-warning-transparente fa fa-play-circle-o" target="_blank" href="#{c.url}" style="font-size: 2em; width: 1.5em"/>
                         </p:column>
 
                         <p:column headerText="Nombre" filterBy="#{c.nombre}" filterStyle="display: none">
@@ -70,7 +70,7 @@
 
                         <p:column width="15%" style="text-align: center">
 
-                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarCancion" styleClass="boton-warning-transparente"
+                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarCancion" styleClass="boton-warning-transparente-sin-borde"
                                              action="#{listaReproduccionBean.eliminarCancion(c.idCancion)}" update="formCanciones"/>
                             <p:tooltip for="botonEliminarCancion" value="Eliminar cancion" position="top" />
                         </p:column>

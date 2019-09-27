@@ -54,9 +54,9 @@
 
                     <p:dataTable id="tablaCanciones" reflow="true" widgetVar="tablaCanciones" value="#{albumBean.album.cancionCollection}" var="c">
                         <f:facet name="header">
-                            <p:outputPanel style="display: flex; justify-content: space-between">
+                            <p:outputPanel style="display: flex; justify-content: space-between; margin-bottom: .5em">
                                 <p:outputPanel layout="inline">
-                                    <p:button value="Incluir cancion" onclick="PF('incluirCancionDialogo').show(); return false;" icon="fa fa-plus"/>
+                                    <p:button value="Incluir cancion" onclick="PF('incluirCancionDialogo').show(); return false;" icon="fa fa-plus" styleClass="boton-warning-transparente"/>
                                 </p:outputPanel>
 
                                 <p:outputPanel layout="inline">
@@ -66,8 +66,8 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column width="5%" style="text-align: center">
-                            <a class="boton-warning-transparente fa fa-play-circle-o" target="_blank" href="#{c.url}" style="font-size: 2.5em"/>
+                        <p:column width="10%" style="text-align: center">
+                            <a class="boton-warning-transparente fa fa-play-circle-o" target="_blank" href="#{c.url}" style="font-size: 2em; width: 1.5em;"/>
                         </p:column>
 
                         <p:column headerText="Nombre" filterBy="#{c.nombre}" filterStyle="display: none">
@@ -80,14 +80,14 @@
 
                         <p:column width="15%" style="text-align: center">
                             <p:commandButton id="botonIncluirCancion" icon="fa fa-plus-circle" action="#{albumBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('incluirDialogo').show();"
-                                             style="margin-right: 1em" styleClass="boton-warning-transparente" update="incluirCancionDialogo"/>
+                                             style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde" update="incluirCancionDialogo"/>
                             <p:tooltip for="botonIncluirCancion" value="Incluir cancion en lista de reproduccion" position="top"/>
 
                             <p:commandButton id="botonModificarCancion" icon="fa fa-pencil-square-o" action="#{albumBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('modificarCancionDialogo').show()"
-                                             style="margin-right: 1em" styleClass="boton-warning-transparente" update="modificarCancionDialogo"/>
+                                             style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde" update="modificarCancionDialogo"/>
                             <p:tooltip for="botonModificarCancion" value="Modificar cancion" position="top"/>
 
-                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarCancion" styleClass="boton-warning-transparente"
+                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarCancion" styleClass="boton-warning-transparente-sin-borde"
                                              action="#{albumBean.eliminarCancion(c.idCancion)}" update="formCanciones"/>
                             <p:tooltip for="botonEliminarCancion" value="Eliminar cancion" position="top" />
                         </p:column>
@@ -134,7 +134,7 @@
                 </p:outputPanel>
 
 
-                <p:outputPanel styleClass="ui-g-12">
+                <p:outputPanel styleClass="ui-g-12" style="text-align: right">
                     <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
                               onclick="PF('incluirAlbumDialogo').hide(); return false;"/>
 

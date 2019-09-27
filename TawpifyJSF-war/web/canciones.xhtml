@@ -81,7 +81,7 @@
                         </f:facet>
 
                         <p:column width="10%" style="text-align: center">
-                            <a class="boton-warning-transparente fa fa-play-circle-o" target="_blank" href="#{c.url}" style="font-size: 2.5em"/>
+                            <a class="boton-warning-transparente fa fa-play-circle-o" target="_blank" href="#{c.url}" style="font-size: 2em; width: 1.5em"/>
                         </p:column>
 
                         <p:column headerText="Nombre" filterBy="#{c.nombre}" filterStyle="display: none">
@@ -100,7 +100,7 @@
                             <h:outputText value="#{cancionesBean.formatearFecha(c.fechaSalida)}" />
                         </p:column>
 
-                        <p:column width="10%" style="text-align: center">
+                        <p:column width="15%" style="text-align: center">
                             <p:commandButton id="botonIncluirCancion" icon="fa fa-plus-circle" action="#{cancionesBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('incluirDialogo').show();"
                                              update="incluirDialogo" style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
                             <p:tooltip for="botonIncluirCancion" value="Incluir cancion en lista de reproduccion" position="top"/>

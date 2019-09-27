@@ -275,4 +275,5 @@ tbody > tr > td {
 .ui-datatable thead th {
     color: white !important;
     text-align: left !important;
+    padding-left: 0 !important;
 }
