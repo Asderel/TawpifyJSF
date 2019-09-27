@@ -37,7 +37,8 @@
                     </p:outputPanel>
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:inputText id="nombreInput" value="#{nuevaCancionBean.nuevaCancion.nombre}" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
+                        <p:inputText id="nombreInput" value="#{nuevaCancionBean.nuevaCancion.nombre}" placeholder="Nombre" required="true" requiredMessage="Campo obligatorio" styleClass="ui-g-12"/>
+                        <p:message for="nombreInput" display="text"/>
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -48,8 +49,9 @@
 
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:calendar id="fechaInput" value="#{nuevaCancionBean.nuevaCancion.fechaSalida}" mask="true" pattern="dd-MM-yyyy"
+                        <p:calendar id="fechaInput" value="#{nuevaCancionBean.nuevaCancion.fechaSalida}" mask="true" pattern="dd-MM-yyyy" requiredMessage="Campo obligatorio"
                                     required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad"/>
+                        <p:message for="fechaInput" display="text"/>
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -59,7 +61,8 @@
                     </p:outputPanel>
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:inputText id="urlInput" value="#{nuevaCancionBean.nuevaCancion.url}" placeholder="URL" required="true" styleClass="ui-g-12"/>
+                        <p:inputText id="urlInput" value="#{nuevaCancionBean.nuevaCancion.url}" placeholder="URL" required="true" styleClass="ui-g-12" requiredMessage="Campo obligatorio"/>
+                        <p:message for="urlInput" display="text"/>
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -82,13 +85,13 @@
                     </p:outputPanel>
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:inputText id="nombreAlbumInput" value="#{nuevaCancionBean.albumSeleccionado.nombre}" placeholder="Album" required="true" styleClass="ui-g-12" disabled="true"/>
+                        <p:inputText id="nombreAlbumInput" value="#{nuevaCancionBean.albumSeleccionado.nombre}" placeholder="Album" styleClass="ui-g-12" disabled="true"/>
                     </p:outputPanel>
                 </p:outputPanel>
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:commandButton value="Listo" action="#{nuevaCancionBean.modificarCancion()}"
-                                     styleClass="boton-warning ui-g-12 ui-g-nopad"/>
+                                     styleClass="boton-warning ui-g-12 ui-g-nopad" update="@form"/>
                 </p:outputPanel>
             </p:outputPanel>
 

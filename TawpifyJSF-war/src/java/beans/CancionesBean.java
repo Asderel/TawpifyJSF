@@ -94,7 +94,7 @@ public class CancionesBean {
         } else {
             this.canciones = cFacade.selectCancionesOrdenadas();
         }
-
+        
         this.albumes = alFacade.findAll();
         this.artistas = aFacade.findAll();
         this.listasReproduccion = listaFacade.findAll();

@@ -61,11 +61,12 @@
 
         <h:form id="formCanciones" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
             <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
-                <p:autoUpdate/>
 
                 <p:outputPanel id="lista" styleClass="ui-g-12 ui-g-nopad">
 
                     <p:dataTable id="tablaCanciones" reflow="true" widgetVar="tablaCanciones" value="#{cancionesBean.canciones}" var="c">
+                        <p:autoUpdate/>
+
                         <f:facet name="header">
                             <p:outputPanel style="display: flex; justify-content: space-between">
                                 <p:outputPanel layout="inline">
@@ -73,7 +74,7 @@
                                 </p:outputPanel>
 
                                 <p:outputPanel layout="inline">
-                                    <p:inputText id="globalFilter" onkeyup="PF('tablaCanciones').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                    <p:inputText id="globalFilter" onkeyup="filtrar()" style="width:150px" placeholder="Filtra en la tabla"/>
                                 </p:outputPanel>
 
                             </p:outputPanel>
@@ -124,19 +125,19 @@
         <!-- DIALOGOS -->
 
         <h:form id="crearDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
-            <p:dialog header="¿Para que album quieres crear la cancion?" widgetVar="dialogoCrear" showEffect="fold" hideEffect="fold" modal="true" position="center">
+            <p:dialog header="¿Para que album quieres crear la cancion?" widgetVar="dialogoCrear" showEffect="fold" hideEffect="fold" position="center">
                 <p:outputPanel styleClass="ui-g-12">
                     <h:outputText value="Datos" />
                 </p:outputPanel>
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:outputPanel styleClass="ui-g-12">
-                    <p:outputLabel for="filtroListaReproduccion" value="Incluir cancion en el album..." styleClass="ui-g-12" style="padding-left: 0"/>
-                    <p:selectOneMenu id="filtroListaReproduccion" styleClass="ui-g-12" value="#{cancionesBean.idAlbumSeleccionado}"
-                                     filter="true" filterMatchMode="contains">
-                        <f:selectItems value="#{cancionesBean.albumes}" var="album" itemLabel="#{album.nombre}" itemValue="#{album.idAlbum}"/>
-                    </p:selectOneMenu>
-                </p:outputPanel>
+                        <p:outputLabel for="filtroListaReproduccion" value="Incluir cancion en el album..." styleClass="ui-g-12" style="padding-left: 0"/>
+                        <p:selectOneMenu id="filtroListaReproduccion" styleClass="ui-g-12" value="#{cancionesBean.idAlbumSeleccionado}"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItems value="#{cancionesBean.albumes}" var="album" itemLabel="#{album.nombre}" itemValue="#{album.idAlbum}"/>
+                        </p:selectOneMenu>
+                    </p:outputPanel>
                 </p:outputPanel>
 
                 <p:outputPanel styleClass="ui-g-12" style="text-align: right">
@@ -166,13 +167,41 @@
 
                 <p:outputPanel styleClass="ui-g-12" style="text-align: right">
                     <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
-                              onclick="PF('dialogoModificar').hide(); return false;"/>
+                              onclick="PF('incluirDialogo').hide(); return false;"/>
 
                     <p:commandButton icon="fa fa-check" value="Listo" styleClass="boton-warning-transparente"
-                                     action="#{cancionesBean.incluirCancion()}" update="formCanciones @form" oncomplete="PF('dialogoModificar').hide()"/>
+                                     action="#{cancionesBean.incluirCancion()}" update="@form" oncomplete="PF('incluirDialogo').hide()"/>
                 </p:outputPanel>
             </p:dialog>
         </h:form>
+
+        <script type="text/javascript">
+            function filtrar() {
+                // Declare variables
+                var input, filtro, tabla, cuerpo, fila, columnas, x, i, j, valor;
+                input = document.getElementById("formCanciones:tablaCanciones:globalFilter");
+                filtro = input.value.toUpperCase();
+
+                tabla = document.getElementById('formCanciones:tablaCanciones');
+                cuerpo = tabla.getElementsByTagName('tbody');
+
+                for (x = 0; cuerpo.length; x++) {
+                    fila = cuerpo[x].getElementsByTagName('tr');
+                    for (i = 0; fila.length > i; i++) {
+                        columnas = fila[i].getElementsByTagName("td");
+                        for (j = 0; (columnas.length - 1) > j; j++) {
+                            valor = columnas[j].textContent || columnas[j].innerText;
+                            if (valor.toUpperCase().indexOf(filtro) > -1) {
+                                fila[i].style.display = "";
+                                break;
+                            } else {
+                                fila[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
 
         <!-- FIN DIALOGOS -->
     </ui:define>

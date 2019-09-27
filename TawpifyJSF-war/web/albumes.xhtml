@@ -55,19 +55,18 @@
 
         <h:form id="formAlbumes" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
             <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
-
                 <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
 
                     <p:dataTable id="tablaAlbumes" reflow="true" widgetVar="tablaAlbumes" value="#{albumesBean.albumes}" var="al">
-                        <p:autoUpdate />
+                        <p:autoUpdate/>
                         <f:facet name="header">
                             <p:outputPanel style="display: flex; justify-content: space-between">
                                 <p:outputPanel layout="inline">
-                                    <p:commandButton value="Nuevo album" action="#{albumesBean.crearAlbum()}" icon="fa fa-plus"/>
+                                    <p:commandButton value="Nuevo album" action="#{albumesBean.crearAlbum()}" icon="fa fa-plus" update="@form"/>
                                 </p:outputPanel>
 
                                 <p:outputPanel layout="inline">
-                                    <p:inputText id="globalFilter" onkeyup="PF('tablaAlbumes').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                    <p:inputText id="globalFilter" onkeyup="filtrar()" style="width:150px" placeholder="Filtra en la tabla"/>
                                 </p:outputPanel>
 
                             </p:outputPanel>
@@ -104,6 +103,34 @@
 
             </p:outputPanel>
         </h:form>
+
+        <script type="text/javascript">
+            function filtrar() {
+                // Declare variables
+                var input, filtro, tabla, cuerpo, fila, columnas, x, i, j, valor;
+                input = document.getElementById("formAlbumes:tablaAlbumes:globalFilter");
+                filtro = input.value.toUpperCase();
+
+                tabla = document.getElementById('formAlbumes:tablaAlbumes');
+                cuerpo = tabla.getElementsByTagName('tbody');
+
+                for (x = 0; cuerpo.length; x++) {
+                    fila = cuerpo[x].getElementsByTagName('tr');
+                    for (i = 0; fila.length > i; i++) {
+                        columnas = fila[i].getElementsByTagName("td");
+                        for (j = 0; (columnas.length - 1) > j; j++) {
+                            valor = columnas[j].textContent || columnas[j].innerText;
+                            if (valor.toUpperCase().indexOf(filtro) > -1) {
+                                fila[i].style.display = "";
+                                break;
+                            } else {
+                                fila[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
 
         <!-- FIN LISTA ALBUMES -->
 

@@ -42,8 +42,8 @@ public class CancionFacade extends AbstractFacade<Cancion> {
 
     public List<Cancion> filtrarCanciones(Collection<Artista> a, Collection<Album> al) {
         StringBuilder sb = new StringBuilder();
+        sb.append("SELECT c FROM Cancion c LEFT JOIN c.artistaCollection ac");
         Collection<Artista> b = a;
-        sb.append("SELECT c FROM Cancion c");
 
         if (a != null && !a.isEmpty() && al != null && !al.isEmpty()) {
             sb.append(" WHERE c.idAlbum IN :al OR c.idAlbum.idArtista IN :a OR ac IN :b");
@@ -57,7 +57,7 @@ public class CancionFacade extends AbstractFacade<Cancion> {
 
         Query q = em.createQuery(sb.toString());
 
-        if (a != null && !a.isEmpty() && al != null) {
+        if (a != null && !a.isEmpty() && al != null && !al.isEmpty()) {
             q.setParameter("al", al).setParameter("a", a).setParameter("b", b);
         } else if (a != null && !a.isEmpty()) {
             q.setParameter("a", a).setParameter("b", b);

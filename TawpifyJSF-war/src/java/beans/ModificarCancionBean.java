@@ -11,6 +11,7 @@ import entities.Cancion;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -67,10 +68,20 @@ public class ModificarCancionBean implements Serializable {
 
     public String modificarCancion() {
         nuevaCancion.setIdAlbum(albumSeleccionado);
+        List<Artista> artistasSeleccionados = obtenerArtistas();
+        Collection<Artista> relacionAntigua = nuevaCancion.getArtistaCollection();
 
+        if (relacionAntigua != null && !relacionAntigua.isEmpty()) {
+            for (Artista a : relacionAntigua) {
+                a.getCancionCollection().remove(nuevaCancion);
+                aFacade.edit(a);
+            }
+        }
+
+        nuevaCancion.setArtistaCollection(artistasSeleccionados);
         cFacade.edit(nuevaCancion);
 
-        for (Artista a : obtenerArtistas()) {
+        for (Artista a : artistasSeleccionados) {
 
             if (!a.getCancionCollection().contains(nuevaCancion)) {
                 a.getCancionCollection().add(nuevaCancion);
