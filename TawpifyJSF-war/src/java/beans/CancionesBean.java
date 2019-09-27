@@ -8,7 +8,6 @@ package beans;
 import entities.Album;
 import entities.Artista;
 import entities.Cancion;
-import entities.Cancion;
 import entities.ListaReproduccion;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import session.AlbumFacade;
 import session.ArtistaFacade;
-import session.CancionFacade;
 import session.CancionFacade;
 import session.ListaReproduccionFacade;
 
@@ -75,10 +73,17 @@ public class CancionesBean {
         this.nuevaCancion = new Cancion();
         this.idListaSeleccionada = 0;
         this.idAlbumSeleccionado = 0;
+
+        if(session.getCancionSeleccionada() != null) {
+            this.nuevaCancion = session.getCancionSeleccionada();
+        } else {
+            this.nuevaCancion = new Cancion();
+        }
     }
 
     public void SeleccionarCancion(Integer idCancion) {
         this.nuevaCancion = cFacade.find(idCancion);
+        session.setCancionSeleccionada(nuevaCancion);
     }
 
     private void initListas() {
@@ -115,6 +120,8 @@ public class CancionesBean {
 
         this.nuevaCancion = new Cancion();
         this.idListaSeleccionada = 0;
+        
+        this.session.setCancionSeleccionada(null);
         initListas();
     }
 

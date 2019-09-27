@@ -100,16 +100,23 @@ public class AlbumBean {
         if (!cancionSeleccionada.getListaReproduccionCollection().contains(l)) {
             cancionSeleccionada.getListaReproduccionCollection().add(l);
             cFacade.edit(cancionSeleccionada);
+
+            l.getCancionCollection().add(cancionSeleccionada);
+            listaFacade.edit(l);
         }
     }
 
     public void incluirAlbum() {
+        ListaReproduccion l = listaFacade.find(Integer.parseInt(idListaSeleccionada));
+
         for (Cancion c : album.getCancionCollection()) {
-            ListaReproduccion l = listaFacade.find(Integer.parseInt(idListaSeleccionada));
 
             if (!c.getListaReproduccionCollection().contains(l)) {
                 c.getListaReproduccionCollection().add(l);
                 cFacade.edit(c);
+
+                l.getCancionCollection().add(c);
+                listaFacade.edit(l);
             }
         }
     }

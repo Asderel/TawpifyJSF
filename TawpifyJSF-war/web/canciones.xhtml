@@ -61,6 +61,7 @@
 
         <h:form id="formCanciones" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
             <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
+                <p:autoUpdate/>
 
                 <p:outputPanel id="lista" styleClass="ui-g-12 ui-g-nopad">
 
@@ -99,7 +100,7 @@
                         </p:column>
 
                         <p:column width="15%" style="text-align: center">
-                            <p:commandButton id="botonIncluirCancion" icon="fa fa-circle" action="#{cancionesBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('incluirDialogo').show();"
+                            <p:commandButton id="botonIncluirCancion" icon="fa fa-plus-circle" action="#{cancionesBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('incluirDialogo').show();"
                                              update="incluirDialogo" style="margin-right: 1em" styleClass="boton-warning-transparente"/>
                             <p:tooltip for="botonModificarCancion" value="Incluir cancion en lista de reproduccion" position="top"/>
 
