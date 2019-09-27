@@ -29,13 +29,14 @@
                     <p:dataTable id="tablaArtistas" reflow="true" widgetVar="tablaArtistas" value="#{artistasBean.artistas}" var="a">
                         <p:autoUpdate />
                         <f:facet name="header">
-                            <p:outputPanel style="display: flex; justify-content: space-between">
+                            <p:outputPanel style="display: flex; justify-content: space-between; margin-bottom: .5em">
                                 <p:outputPanel layout="inline">
-                                    <p:button value="Nuevo artista" onclick="PF('dialogoCrear').show(); return null;" icon="fa fa-plus"/>
+                                    <p:button value="Nuevo artista" styleClass="boton-warning-transparente"
+                                              onclick="PF('dialogoCrear').show(); return null;" icon="fa fa-plus"/>
                                 </p:outputPanel>
 
                                 <p:outputPanel layout="inline">
-                                    <p:inputText id="globalFilter" onkeyup="PF('tablaArtistas').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaArtistas').filter()" style="width: 15em" placeholder="Filtra en la tabla"/>
                                 </p:outputPanel>
 
                             </p:outputPanel>
@@ -45,12 +46,12 @@
                             <h:outputText value="#{a.nombre}" />
                         </p:column>
 
-                        <p:column width="8%">
+                        <p:column width="10%">
                             <p:commandButton id="botonModificarArtista" icon="fa fa-pencil-square-o" action="#{artistasBean.SeleccionarArtista(a.idArtista)}" oncomplete="PF('dialogoModificar').show();"
-                                             update="modificarDialogo" style="margin-right: 1em"/>
+                                             update="modificarDialogo" style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
                             <p:tooltip for="botonModificarArtista" value="Modificar artista" position="top"/>
 
-                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarArtista"
+                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarArtista" styleClass="boton-warning-transparente-sin-borde"
                                              action="#{artistasBean.eliminarArtista(a.idArtista)}" update="formArtistas"/>
                             <p:tooltip for="botonEliminarArtista" value="Eliminar artista" position="top"/>
                         </p:column>

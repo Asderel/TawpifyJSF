@@ -60,13 +60,13 @@
                     <p:dataTable id="tablaAlbumes" reflow="true" widgetVar="tablaAlbumes" value="#{albumesBean.albumes}" var="al">
                         <p:autoUpdate/>
                         <f:facet name="header">
-                            <p:outputPanel style="display: flex; justify-content: space-between">
+                            <p:outputPanel style="display: flex; justify-content: space-between; margin-bottom: .5em">
                                 <p:outputPanel layout="inline">
-                                    <p:commandButton value="Nuevo album" action="#{albumesBean.crearAlbum()}" icon="fa fa-plus" update="@form"/>
+                                    <p:commandButton value="Nuevo album" action="#{albumesBean.crearAlbum()}" icon="fa fa-plus" update="@form" styleClass="boton-warning-transparente"/>
                                 </p:outputPanel>
 
                                 <p:outputPanel layout="inline">
-                                    <p:inputText id="globalFilter" onkeyup="filtrar()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                    <p:inputText id="globalFilter" onkeyup="filtrar()" style="width: 15em" placeholder="Filtra en la tabla"/>
                                 </p:outputPanel>
 
                             </p:outputPanel>
@@ -86,14 +86,14 @@
 
                         <p:column width="15%" style="text-align: center">
                             <p:commandButton id="botonVerAlbum" icon="fa fa-eye" action="#{albumesBean.verAlbum(al.idAlbum)}"
-                                             style="margin-right: 1em" styleClass="boton-warning-transparente"/>
+                                             style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
                             <p:tooltip for="botonModificarAlbum" value="Ver album" position="top"/>
 
                             <p:commandButton id="botonModificarAlbum" icon="fa fa-pencil-square-o" action="#{albumesBean.modificarAlbum(al.idAlbum)}"
-                                             style="margin-right: 1em" styleClass="boton-warning-transparente "/>
+                                             style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
                             <p:tooltip for="botonModificarAlbum" value="Modificar album" position="top"/>
 
-                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarAlbum" styleClass="boton-warning-transparente"
+                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarAlbum" styleClass="boton-warning-transparente-sin-borde"
                                              action="#{albumesBean.eliminarAlbum(al.idAlbum)}" update="formAlbumes"/>
                             <p:tooltip for="botonEliminarAlbum" value="Eliminar album" position="top" />
                         </p:column>

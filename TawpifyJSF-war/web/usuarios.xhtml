@@ -30,14 +30,14 @@
 
                     <p:dataTable id="tablaUsuarios" reflow="true" widgetVar="tablaUsuarios" value="#{usuariosBean.usuarios}" var="u">
                         <f:facet name="header">
-                            <p:outputPanel style="display: flex; justify-content: space-between">
+                            <p:outputPanel style="display: flex; justify-content: space-between; margin-bottom: .5em">
                                 <p:outputPanel layout="inline">
-                                    <p:commandButton id="nuevoUsuario" value="Nuevo usuario"
+                                    <p:commandButton id="nuevoUsuario" value="Nuevo usuario" styleClass="boton-warning-transparente-sin-borde"
                                                      action="#{usuariosBean.nuevoUsuario()}" icon="fa fa-plus"/>
                                 </p:outputPanel>
 
                                 <p:outputPanel layout="inline">
-                                    <p:inputText id="globalFilter" onkeyup="PF('tablaUsuarios').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaUsuarios').filter()" style="width: 15em" placeholder="Filtra en la tabla"/>
                                 </p:outputPanel>
 
                             </p:outputPanel>
@@ -60,11 +60,11 @@
                         </p:column>
 
                         <p:column width="8%">
-                            <p:commandButton id="botonModificarUsuario" icon="fa fa-pencil-square-o"
+                            <p:commandButton id="botonModificarUsuario" icon="fa fa-pencil-square-o" styleClass="boton-warning-transparente-sin-borde"
                                              action="#{usuariosBean.verDetalleUsuario(u.idUsuario)}" style="margin-right: 1em"/>
                             <p:tooltip for="botonModificarUsuario" value="Modificar usuario" position="top"/>
 
-                            <p:commandButton id="botonEliminarUsuario" icon="fa fa-trash-o"
+                            <p:commandButton id="botonEliminarUsuario" icon="fa fa-trash-o" styleClass="boton-warning-transparente-sin-borde"
                                              action="#{usuariosBean.eliminarUsuario(u.idUsuario)}" update="@form"/>
                             <p:tooltip for="botonEliminarUsuario" value="Eliminar usuario" position="top"/>
                         </p:column>
