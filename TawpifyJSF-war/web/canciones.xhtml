@@ -158,7 +158,7 @@
                     <p:outputLabel for="filtroListaReproduccion" value="Incluir cancion en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
                     <p:selectOneMenu id="filtroListaReproduccion" styleClass="ui-g-12" value="#{cancionesBean.idListaSeleccionada}"
                                      filter="true" filterMatchMode="contains">
-                        <f:selectItems value="#{cancionesBean.listasReproduccion}" var="lista" itemLabel="#{lista.nombre}" itemValue="#{lista.idAlbum}"/>
+                        <f:selectItems value="#{cancionesBean.listasReproduccion}" var="lista" itemLabel="#{lista.nombre}" itemValue="#{lista.idListaReproduccion}"/>
                     </p:selectOneMenu>
                 </p:outputPanel>
 

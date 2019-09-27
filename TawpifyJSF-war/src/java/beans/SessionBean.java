@@ -3,6 +3,7 @@ package beans;
 import entities.Album;
 import entities.Cancion;
 import entities.Genero;
+import entities.ListaReproduccion;
 import entities.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -26,6 +27,9 @@ public class SessionBean implements Serializable {
 
     // Albumes
     private Album albumSeleccionado;
+
+    // Listas reproduccion
+    private ListaReproduccion listaSeleccionada;
 
     /**
      * Creates a new instance of SessionBean
@@ -84,5 +88,13 @@ public class SessionBean implements Serializable {
 
     public void setAlbumSeleccionado(Album albumSeleccionado) {
         this.albumSeleccionado = albumSeleccionado;
+    }
+
+    public ListaReproduccion getListaSeleccionada() {
+        return listaSeleccionada;
+    }
+
+    public void setListaSeleccionada(ListaReproduccion listaSeleccionada) {
+        this.listaSeleccionada = listaSeleccionada;
     }
 }

@@ -12,68 +12,73 @@
         Lista reproduccion
     </ui:define>
 
-    <ui:define name="contenidoBadge">
-        WOLOLOO
-    </ui:define>
-
     <ui:define name="contenidoJumbotron">
-        <h:outputText style="font-size: 2em" value="Album EL COSO"/>
+        <h:outputText style="font-size: 2em" value="Lista: #{listaReproduccionBean.lista.nombre}"/>
         <p style="font-size: 1em">
-            Lista VIVALDI
+            <p:outputPanel styleClass="ui-g-12" layout="inline">
+                <p:autoUpdate />
+                Canciones: #{listaReproduccionBean.lista.cancionCollection.size()}
+            </p:outputPanel>
         </p>
         <p style="font-size: 1em">
-            Canciones 25 (anal)
+            <p:outputPanel styleClass="ui-g-12" layout="inline">
+                <p:autoUpdate />
+                Fecha creacion: #{listaReproduccionBean.formatearFecha(listaReproduccionBean.lista.fechaCreacion)}
+            </p:outputPanel>
         </p>
-        <p:commandButton value="Eliminar lista" styleClass="boton-warning-transparente"/>
     </ui:define>
 
     <ui:define name="contenidoPrincipal">
 
         <!-- LISTA CANCIONES -->
 
-        <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
+        <h:form id="formCanciones" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
+            <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
+                <p:autoUpdate />
 
-            <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                <p:outputPanel id="lista" styleClass="ui-g-12 ui-g-nopad">
 
-                <p:dataTable id="tablaCanciones" reflow="true">
-                    <f:facet name="header">
-                        <p:outputPanel style="display: flex; justify-content: space-between">
+                    <p:dataTable id="tablaCanciones" reflow="true" widgetVar="tablaCanciones" value="#{listaReproduccionBean.lista.cancionCollection}" var="c">
+                        <f:facet name="header">
+                            <p:outputPanel style="text-align: right">
+                                <p:outputPanel layout="inline">
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaCanciones').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                </p:outputPanel>
 
-                            <p:outputPanel layout="inline">
-                                <p:inputText id="globalFilter" onkeyup="PF('tablaCanciones').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
                             </p:outputPanel>
+                        </f:facet>
 
-                        </p:outputPanel>
-                    </f:facet>
+                        <p:column width="5%" style="text-align: center">
+                            <a class="boton-warning-transparente fa fa-play-circle-o" target="_blank" href="#{c.url}" style="font-size: 2.5em"/>
+                        </p:column>
 
-                    <p:column width="20%">
-                        <p:commandButton id="escucharCancion" value="Escuchar" icon="fa-play-circle-o"
-                                         onclick="return false;"/>
-                        <p:commandButton id="eliminarCancion" value="Eliminar" icon="fa-trash-o"
-                                         onclick="return false;"/>
-                    </p:column>
+                        <p:column headerText="Nombre" filterBy="#{c.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{c.nombre}" />
+                        </p:column>
 
-                    <p:column headerText="A">
-                        <h:outputText value="a" />
-                    </p:column>
+                        <p:column headerText="Artista" filterBy="#{c.idAlbum.idArtista.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{c.idAlbum.idArtista.nombre}" />
+                        </p:column>
 
-                    <p:column headerText="B">
-                        <h:outputText value="b" />
-                    </p:column>
+                        <p:column headerText="Album" filterBy="#{c.idAlbum.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{c.idAlbum.nombre}" />
+                        </p:column>
 
-                    <p:column headerText="C">
-                        <h:outputText value="c" />
-                    </p:column>
+                        <p:column headerText="Fecha salida" filterBy="#{listaReproduccionBean.formatearFecha(c.fechaSalida)}" filterStyle="display: none">
+                            <h:outputText value="#{listaReproduccionBean.formatearFecha(c.fechaSalida)}" />
+                        </p:column>
 
-                    <p:column headerText="D">
-                        <h:outputText value="d" />
-                    </p:column>
-                </p:dataTable>
+                        <p:column width="15%" style="text-align: center">
 
+                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarCancion" styleClass="boton-warning-transparente"
+                                             action="#{listaReproduccionBean.eliminarCancion(c.idCancion)}" update="formCanciones"/>
+                            <p:tooltip for="botonEliminarCancion" value="Eliminar cancion" position="top" />
+                        </p:column>
+                    </p:dataTable>
+
+                </p:outputPanel>
             </p:outputPanel>
-
-
-        </p:outputPanel>
+        </h:form>
 
         <!-- FIN LISTA CANCIONES -->
 

@@ -12,10 +12,6 @@
         Listas de reproduccion
     </ui:define>
 
-    <ui:define name="contenidoBadge">
-        WOLOLOO
-    </ui:define>
-
     <ui:define name="contenidoJumbotron">
         <h:outputText style="font-size: 2em" value="Listas de reproduccion"/>
         <p style="font-size: 1em">
@@ -27,57 +23,137 @@
 
         <!-- LISTAS REPRODUCCION -->
 
-        <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
+        <h:form id="formListasReproduccion" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
+            <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
+                <p:autoUpdate />
 
-            <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                <p:outputPanel id="lista" styleClass="ui-g-12 ui-g-nopad">
 
-                <p:dataTable id="tablaListasReproduccion" reflow="true" widgetVar="tablaListasReproduccion">
-                    <f:facet name="header">
-                        <p:outputPanel style="display: flex; justify-content: space-between">
-                            <p:outputPanel layout="inline">
-                                <p:commandButton id="nuevaListaReproduccion" value="Nueva lista de reproduccion"
-                                                 onclick="return false;" icon="fa fa-plus"/>
+                    <p:dataTable id="tablaListasReproduccion" reflow="true" widgetVar="tablaListasReproduccion" value="#{listasReproduccionBean.listas}" var="l">
+                        <f:facet name="header">
+                            <p:outputPanel style="display: flex; justify-content: space-between">
+                                <p:outputPanel layout="inline">
+                                    <p:button value="Nueva lista" onclick="PF('crearListaDialogo').show(); return false;" icon="fa fa-plus"/>
+                                </p:outputPanel>
+
+                                <p:outputPanel layout="inline">
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaListasReproduccion').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
+                                </p:outputPanel>
+
                             </p:outputPanel>
+                        </f:facet>
 
-                            <p:outputPanel layout="inline">
-                                <p:inputText id="globalFilter" onkeyup="PF('tablaListasReproduccion').filter()" style="width:150px" placeholder="Filtra en la tabla"/>
-                            </p:outputPanel>
+                        <p:column headerText="Nombre" filterBy="#{l.nombre}" filterStyle="display: none">
+                            <h:outputText value="#{l.nombre}" />
+                        </p:column>
 
-                        </p:outputPanel>
-                    </f:facet>
+                        <p:column headerText="Fecha creacion" filterBy="#{listasReproduccionBean.formatearFecha(l.fechaCreacion)}" filterStyle="display: none">
+                            <h:outputText value="#{listasReproduccionBean.formatearFecha(l.fechaCreacion)}" />
+                        </p:column>
 
-                    <p:column width="20%">
-                        <p:commandButton id="verListaReproduccion" value="Ver" icon="fa-eye"
-                                                 onclick="return false;"/>
-                        <p:commandButton id="modificarListaReproduccion" value="Modificar" icon="fa-plus-pencil"
-                                                 onclick="return false;"/>
-                        <p:commandButton id="eliminarListaReproduccion" value="Eliminar" icon="fa-trash-o"
-                                                 onclick="return false;"/>
-                    </p:column>
+                        <p:column width="15%" style="text-align: center">
+                            <p:commandButton id="botonVerLista" icon="fa fa-eye" action="#{listasReproduccionBean.verLista(l.idListaReproduccion)}" oncomplete="PF('modificarListaDialogo').show();"
+                                             style="margin-right: 1em" styleClass="boton-warning-transparente"/>
+                            <p:tooltip for="botonVerLista" value="Ver listaReproduccion" position="top"/>
 
-                    <p:column headerText="A">
-                        <h:outputText value="a" />
-                    </p:column>
+                            <p:commandButton id="botonModificarLista" icon="fa fa-pencil-square-o" action="#{listasReproduccionBean.seleccionarLista(l.idListaReproduccion)}"
+                                             oncomplete="PF('modificarListaDialogo').show()"
+                                             style="margin-right: 1em" styleClass="boton-warning-transparente"/>
+                            <p:tooltip for="botonModificarLista" value="Modificar listaReproduccion" position="top"/>
 
-                    <p:column headerText="B">
-                        <h:outputText value="b" />
-                    </p:column>
+                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarLista" styleClass="boton-warning-transparente"
+                                             action="#{listasReproduccionBean.eliminarLista(l.idListaReproduccion)}" update="formListasReproduccion"/>
+                            <p:tooltip for="botonEliminarLista" value="Eliminar listaReproduccion" position="top" />
+                        </p:column>
+                    </p:dataTable>
 
-                    <p:column headerText="C">
-                        <h:outputText value="c" />
-                    </p:column>
-
-                    <p:column headerText="D">
-                        <h:outputText value="d" />
-                    </p:column>
-                </p:dataTable>
-
+                </p:outputPanel>
             </p:outputPanel>
-
-
-        </p:outputPanel>
+        </h:form>
 
         <!-- FIN LISTAS REPRODUCCION -->
+
+        <!-- MODALES -->
+
+        <h:form id="crearListaDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
+            <p:dialog header="Nueva listaReproduccion" widgetVar="crearListaDialogo" showEffect="fold" hideEffect="fold" modal="true" position="top">
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:outputLabel for="nombreInput" value="Nombre" styleClass="ui-g-12" style="padding-left: 0"/>
+                        </p:outputPanel>
+
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:inputText id="nombreInput" value="#{listasReproduccionBean.nuevaLista.nombre}" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:outputLabel for="fechaInput" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0"/>
+                        </p:outputPanel>
+
+
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:calendar id="fechaInput" value="#{listasReproduccionBean.nuevaLista.fechaCreacion}" mask="true" pattern="dd-MM-yyyy"
+                                        required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad"/>
+                        </p:outputPanel>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+
+                <p:outputPanel styleClass="ui-g-12" style="text-align: right">
+                    <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
+                              onclick="PF('crearListaDialogo').hide(); return false;"/>
+
+                    <p:commandButton icon="fa fa-check" value="Listo" styleClass="boton-warning-transparente"
+                                     action="#{listasReproduccionBean.crearLista()}" update="formListasReproduccion @form" oncomplete="PF('crearListaDialogo').hide()"/>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
+        <h:form id="modificarListaDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
+            <p:dialog header="Modifica la listaReproduccion seleccionada" widgetVar="modificarListaDialogo" showEffect="fold" hideEffect="fold" modal="true" position="top">
+
+                <p:outputPanel styleClass="ui-g-12">
+                    <p:autoUpdate />
+
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:outputLabel for="nombreInputModificar" value="Nombre" styleClass="ui-g-12" style="padding-left: 0"/>
+                        </p:outputPanel>
+
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:inputText id="nombreInputModificar" value="#{listasReproduccionBean.nuevaLista.nombre}" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <p:outputPanel styleClass="ui-g-12">
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:outputLabel for="fechaInputModificar" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0"/>
+                        </p:outputPanel>
+
+
+                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                            <p:calendar id="fechaInputModificar" value="#{listasReproduccionBean.nuevaLista.fechaCreacion}" mask="true" pattern="dd-MM-yyyy"
+                                        required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad"/>
+                        </p:outputPanel>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+
+                <p:outputPanel styleClass="ui-g-12" style="text-align: right">
+                    <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
+                              onclick="PF('modificarListaDialogo').hide(); return false;"/>
+
+                    <p:commandButton icon="fa fa-check" value="Listo" styleClass="boton-warning-transparente"
+                                     action="#{listasReproduccionBean.modificarLista()}" update="formListasReproduccion @form" oncomplete="PF('modificarListaDialogo').hide()"/>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
+        <!-- FIN MODALES -->
 
     </ui:define>
 </ui:composition>
