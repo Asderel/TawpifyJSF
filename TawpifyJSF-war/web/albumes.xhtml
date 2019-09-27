@@ -59,6 +59,7 @@
                 <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
 
                     <p:dataTable id="tablaAlbumes" reflow="true" widgetVar="tablaAlbumes" value="#{albumesBean.albumes}" var="al">
+                        <p:autoUpdate />
                         <f:facet name="header">
                             <p:outputPanel style="display: flex; justify-content: space-between">
                                 <p:outputPanel layout="inline">

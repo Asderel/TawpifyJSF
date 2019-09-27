@@ -131,6 +131,16 @@ body {
     padding: .25em .6em
 }
 
+.badge-success {
+    color: white;
+    font-size: 60% !important;
+    font-weight: 700;
+    background-color: #00bc8c;
+    border-radius: 10rem;
+    margin-right: 2em;
+    padding: .25em .6em
+}
+
 .backgroud-modal {
     background-color: #222222;
 }

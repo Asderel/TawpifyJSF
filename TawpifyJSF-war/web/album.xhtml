@@ -25,8 +25,22 @@
                 <p:autoUpdate />
                 Canciones: #{albumBean.album.cancionCollection.size()}
             </p:outputPanel>
+            <p:outputPanel styleClass="ui-g-12">
+                <p:outputPanel layout="inline">
+                    Generos:
+                </p:outputPanel>
+                <p:repeat value="#{albumBean.album.generoCollection}" var="g">
+                    <p:outputPanel layout="inline" styleClass="badge-success">
+                        #{g.nombre}
+                    </p:outputPanel>
+                </p:repeat>
+            </p:outputPanel>
         </p>
-        <p:button value="incluir en lista..." onclick="PF('incluirAlbumDialogo').show(); return false;" styleClass="boton-warning-transparente"/>
+
+        <p:outputPanel styleClass="ui-g-12" style="padding-left: 0; padding-bottom: 0">
+            <p:button value="incluir en lista..." onclick="PF('incluirAlbumDialogo').show(); return false;" styleClass="boton-warning-transparente"/>
+        </p:outputPanel>
+
     </ui:define>
 
     <ui:define name="contenidoPrincipal">
@@ -60,14 +74,6 @@
                             <h:outputText value="#{c.nombre}" />
                         </p:column>
 
-                        <p:column headerText="Artista" filterBy="#{c.idAlbum.idArtista.nombre}" filterStyle="display: none">
-                            <h:outputText value="#{c.idAlbum.idArtista.nombre}" />
-                        </p:column>
-
-                        <p:column headerText="Album" filterBy="#{c.idAlbum.nombre}" filterStyle="display: none">
-                            <h:outputText value="#{c.idAlbum.nombre}" />
-                        </p:column>
-
                         <p:column headerText="Fecha salida" filterBy="#{albumBean.formatearFecha(c.fechaSalida)}" filterStyle="display: none">
                             <h:outputText value="#{albumBean.formatearFecha(c.fechaSalida)}" />
                         </p:column>
@@ -96,7 +102,7 @@
         <!-- DIALOGOS -->
 
         <h:form id="incluirDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
-            <p:dialog header="¿En qué lista quieres incluirla?" widgetVar="incluirDialogo" showEffect="fold" hideEffect="fold" >
+            <p:dialog header="¿En qué lista quieres incluirla?" widgetVar="incluirDialogo" showEffect="fold" hideEffect="fold" modal="true" position="center">
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:outputLabel for="listaReproduccionCancion" value="Incluir cancion en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
@@ -117,7 +123,7 @@
         </h:form>
 
         <h:form id="incluirAlbumDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
-            <p:dialog header="¿En qué lista quieres incluirlo?" widgetVar="incluirAlbumDialogo" showEffect="fold" hideEffect="fold" styleClass="backgroud-modal">
+            <p:dialog header="¿En qué lista quieres incluirlo?" widgetVar="incluirAlbumDialogo" showEffect="fold" hideEffect="fold" styleClass="backgroud-modal" modal="true" position="center">
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:outputLabel for="listaReproduccionIncluirAlbum" value="Incluir album en la lista de reproduccion..." styleClass="ui-g-12" style="padding-left: 0"/>
@@ -139,7 +145,7 @@
         </h:form>
 
         <h:form id="incluirCancionDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
-            <p:dialog header="Nueva cancion para el album" widgetVar="incluirCancionDialogo" showEffect="fold" hideEffect="fold" >
+            <p:dialog header="Nueva cancion para el album" widgetVar="incluirCancionDialogo" showEffect="fold" hideEffect="fold" modal="true" position="center">
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:outputPanel styleClass="ui-g-12">
@@ -187,7 +193,7 @@
         </h:form>
 
         <h:form id="modificarCancionDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
-            <p:dialog header="Modifica la cancion seleccionada" widgetVar="modificarCancionDialogo" showEffect="fold" hideEffect="fold" >
+            <p:dialog header="Modifica la cancion seleccionada" widgetVar="modificarCancionDialogo" showEffect="fold" hideEffect="fold" modal="true" position="center">
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:outputPanel styleClass="ui-g-12">

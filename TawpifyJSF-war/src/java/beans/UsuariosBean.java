@@ -7,14 +7,13 @@ package beans;
 
 import entities.Usuario;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import session.UsuarioFacade;
@@ -24,7 +23,7 @@ import session.UsuarioFacade;
  * @author Asde
  */
 @Named(value = "usuariosBean")
-@Dependent
+@RequestScoped
 public class UsuariosBean {
 
     @EJB
@@ -34,7 +33,6 @@ public class UsuariosBean {
     SessionBean session;
 
     private List<Usuario> usuarios;
-    private List<Usuario> usuariosFiltro;
 
     /**
      * Creates a new instance of UsuariosBean
@@ -49,7 +47,6 @@ public class UsuariosBean {
 
     private void buscarUsuarios() {
         this.usuarios = uFacade.findAll();
-        this.usuariosFiltro = new ArrayList<>(usuarios);
     }
 
     public String verDetalleUsuario(Integer idUsuario) {
@@ -74,7 +71,7 @@ public class UsuariosBean {
             if (resp) {
                 try {
                     session.setUsuarioConectado(null);
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("/faces/index.xhtml");
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("/TawpifyJSF-war/faces/index.xhtml");
                 } catch (IOException ex) {
                     Logger.getLogger(UsuariosBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -93,14 +90,6 @@ public class UsuariosBean {
 
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
-    }
-
-    public List<Usuario> getUsuariosFiltro() {
-        return usuariosFiltro;
-    }
-
-    public void setUsuariosFiltro(List<Usuario> usuariosFiltro) {
-        this.usuariosFiltro = usuariosFiltro;
     }
 
 }

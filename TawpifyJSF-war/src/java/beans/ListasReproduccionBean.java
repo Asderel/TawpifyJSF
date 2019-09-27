@@ -7,6 +7,7 @@ package beans;
 
 import entities.ListaReproduccion;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -67,7 +68,9 @@ public class ListasReproduccionBean {
 
     public void crearLista() {
         nuevaLista.setIdUsuario(session.getUsuarioConectado());
+        nuevaLista.setFechaCreacion(Date.from(Instant.now()));
         listaFacade.create(nuevaLista);
+        
         session.setListaSeleccionada(null);
         cargarlistas();
 

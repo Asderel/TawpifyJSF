@@ -102,7 +102,7 @@
                         <p:column width="15%" style="text-align: center">
                             <p:commandButton id="botonIncluirCancion" icon="fa fa-plus-circle" action="#{cancionesBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('incluirDialogo').show();"
                                              update="incluirDialogo" style="margin-right: 1em" styleClass="boton-warning-transparente"/>
-                            <p:tooltip for="botonModificarCancion" value="Incluir cancion en lista de reproduccion" position="top"/>
+                            <p:tooltip for="botonIncluirCancion" value="Incluir cancion en lista de reproduccion" position="top"/>
 
                             <p:commandButton id="botonModificarCancion" icon="fa fa-pencil-square-o" action="#{cancionesBean.modificarCancion(c.idCancion)}"
                                              style="margin-right: 1em" styleClass="boton-warning-transparente "/>
@@ -124,7 +124,7 @@
         <!-- DIALOGOS -->
 
         <h:form id="crearDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0">
-            <p:dialog header="¿Para que album quieres crear la cancion?" widgetVar="dialogoCrear" showEffect="fold" hideEffect="fold">
+            <p:dialog header="¿Para que album quieres crear la cancion?" widgetVar="dialogoCrear" showEffect="fold" hideEffect="fold" modal="true" position="center">
                 <p:outputPanel styleClass="ui-g-12">
                     <h:outputText value="Datos" />
                 </p:outputPanel>
@@ -150,7 +150,7 @@
         </h:form>
 
         <h:form id="incluirDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
-            <p:dialog header="Modifica la cancion seleccionada" widgetVar="incluirDialogo" showEffect="fold" hideEffect="fold" >
+            <p:dialog header="Modifica la cancion seleccionada" widgetVar="incluirDialogo" showEffect="fold" hideEffect="fold" modal="true" position="center">
                 <p:outputPanel styleClass="ui-g-12">
                     <h:outputText value="¿En qué lista quieres incluirla?"/>
                 </p:outputPanel>

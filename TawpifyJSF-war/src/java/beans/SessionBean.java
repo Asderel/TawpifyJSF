@@ -1,6 +1,7 @@
 package beans;
 
 import entities.Album;
+import entities.Artista;
 import entities.Cancion;
 import entities.Genero;
 import entities.ListaReproduccion;
@@ -8,6 +9,8 @@ import entities.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 import javax.annotation.PostConstruct;
 
 /**
@@ -30,6 +33,16 @@ public class SessionBean implements Serializable {
 
     // Listas reproduccion
     private ListaReproduccion listaSeleccionada;
+
+    // Artistas
+    private Artista artistaSeleccionado;
+
+    // Generos
+    private Genero generoSeleccionado;
+
+    // Misc
+    List<Album> albumesFiltrados;
+    List<Cancion> cancionesFiltradas;
 
     /**
      * Creates a new instance of SessionBean
@@ -96,5 +109,37 @@ public class SessionBean implements Serializable {
 
     public void setListaSeleccionada(ListaReproduccion listaSeleccionada) {
         this.listaSeleccionada = listaSeleccionada;
+    }
+
+    public Artista getArtistaSeleccionado() {
+        return artistaSeleccionado;
+    }
+
+    public void setArtistaSeleccionado(Artista artistaSeleccionado) {
+        this.artistaSeleccionado = artistaSeleccionado;
+    }
+
+    public Genero getGeneroSeleccionado() {
+        return generoSeleccionado;
+    }
+
+    public void setGeneroSeleccionado(Genero generoSeleccionado) {
+        this.generoSeleccionado = generoSeleccionado;
+    }
+
+    public List<Album> getAlbumesFiltrados() {
+        return albumesFiltrados;
+    }
+
+    public void setAlbumesFiltrados(List<Album> albumesFiltrados) {
+        this.albumesFiltrados = albumesFiltrados;
+    }
+
+    public List<Cancion> getCancionesFiltrados() {
+        return cancionesFiltradas;
+    }
+
+    public void setCancionesFiltrados(List<Cancion> cancionesFiltrados) {
+        this.cancionesFiltradas = cancionesFiltrados;
     }
 }

@@ -13,7 +13,7 @@
     </ui:define>
 
     <ui:define name="contenidoJumbotron">
-        <h:outputText style="font-size: 2em" value="Generos"/>
+        <h:outputText style="font-size: 2em" value="Usuarios"/>
         <p style="font-size: 1em">
             Aqui puedes gestionar los usuarios registrados
         </p>
@@ -28,7 +28,7 @@
 
                 <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
 
-                    <p:dataTable id="tablaUsuarios" reflow="true" widgetVar="tablaUsuarios" value="#{usuariosBean.usuarios}" var="u" filteredValue="#{usuariosBean.usuariosFiltro}">
+                    <p:dataTable id="tablaUsuarios" reflow="true" widgetVar="tablaUsuarios" value="#{usuariosBean.usuarios}" var="u">
                         <f:facet name="header">
                             <p:outputPanel style="display: flex; justify-content: space-between">
                                 <p:outputPanel layout="inline">
@@ -43,19 +43,19 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Nombre" filterBy="#{u.nombre}" filterStyle="display: none">
+                        <p:column headerText="Nombre" filterBy="#{u.nombre}" filterStyle="display: none" filterMatchMode="contains">
                             <h:outputText value="#{u.nombre}" />
                         </p:column>
 
-                        <p:column headerText="Apodo" filterBy="#{u.email}" filterStyle="display: none">
+                        <p:column headerText="Apodo" filterBy="#{u.email}" filterStyle="display: none" filterMatchMode="contains">
                             <h:outputText value="#{u.email}" />
                         </p:column>
 
-                        <p:column headerText="Email" filterBy="#{u.apodo}" filterStyle="display: none">
+                        <p:column headerText="Email" filterBy="#{u.apodo}" filterStyle="display: none" filterMatchMode="contains">
                             <h:outputText value="#{empty u.apodo ? '' : u.apodo}" />
                         </p:column>
 
-                        <p:column headerText="Email" filterBy="#{u.administrador}" filterStyle="display: none">
+                        <p:column headerText="Administrador" filterBy="#{u.administrador}" filterStyle="display: none" filterMatchMode="contains">
                             <h:outputText value="#{u.administrador eq 1 ? 'SI' : 'NO'}" />
                         </p:column>
 

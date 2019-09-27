@@ -51,10 +51,13 @@ public class AlbumesBean {
 
     @PostConstruct
     public void init() {
+
         initListas();
 
         this.idArtistasSeleccionados = new ArrayList<>();
         this.nuevoAlbum = new Album();
+
+        resetFiltro();
     }
 
     public void SeleccionarAlbum(Integer idAlbum) {
@@ -62,8 +65,17 @@ public class AlbumesBean {
     }
 
     private void initListas() {
-        this.albumes = alFacade.findAll();
+        if (session.getAlbumesFiltrados() != null) {
+            this.albumes = new ArrayList<>(session.getAlbumesFiltrados());
+        } else {
+            this.albumes = alFacade.findAll();
+        }
+
         this.artistas = aFacade.findAll();
+    }
+
+    private void resetFiltro() {
+        session.setAlbumesFiltrados(null);
     }
 
     public String crearAlbum() {
@@ -95,6 +107,13 @@ public class AlbumesBean {
         }
 
         this.albumes = new ArrayList<>(alFacade.filtrarAlbumes(a));
+
+        // FOLLADA QUE TE FLIPAS
+        if (!a.isEmpty()) {
+            session.setAlbumesFiltrados(this.albumes);
+        } else {
+            session.setAlbumesFiltrados(null);
+        }
     }
 
     public String formatearFecha(Date date) {

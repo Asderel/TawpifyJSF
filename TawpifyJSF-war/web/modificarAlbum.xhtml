@@ -9,13 +9,13 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="titulo">
-        Nuevo album
+        Modificar album
     </ui:define>
 
     <ui:define name="contenidoJumbotron">
-        <h:outputText style="font-size: 2em" value="Creacion de album"/>
+        <h:outputText style="font-size: 2em" value="Modificacion de album"/>
         <p style="font-size: 1em">
-            Crea un nuevo album
+            Modifica el album seleccionado
         </p>
     </ui:define>
 
@@ -36,7 +36,8 @@
                         <p:outputLabel for="nombreInput" value="Nombre" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:inputText id="nombreInput" value="#{modificarAlbumBean.nuevoAlbum.nombre}" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
+                        <p:inputText id="nombreInput" value="#{modificarAlbumBean.nuevoAlbum.nombre}" placeholder="Nombre" required="true" requiredMessage="Campo obligatorio" styleClass="ui-g-12"/>
+                        <p:message display="text" for="nombreInput" />
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -45,7 +46,9 @@
                         <p:outputLabel for="fechaInput" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:calendar id="fechaInput" value="#{modificarAlbumBean.nuevoAlbum.fechaSalida}" required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad" mask="true" pattern="dd-MM-yyyy"/>
+                        <p:calendar id="fechaInput" value="#{modificarAlbumBean.nuevoAlbum.fechaSalida}" showOn="button" styleClass="ui-g-12 ui-g-nopad" mask="true" pattern="dd-MM-yyyy"
+                                    required="true" requiredMessage="Campo opbligatorio"/>
+                        <p:message display="text" for="fechaInput" />
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -55,9 +58,11 @@
                     </p:outputPanel>
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:selectOneMenu id="artistas" effect="fade" styleClass="ui-g-12" filter="true" filterMatchMode="contains" value="#{modificarAlbumBean.idArtistaSeleccionado}">
+                        <p:selectOneMenu id="artistas" effect="fade" styleClass="ui-g-12" filter="true" filterMatchMode="contains" value="#{modificarAlbumBean.idArtistaSeleccionado}"
+                                         required="true" requiredMessage="Campo obligatorio">
                             <f:selectItems value="#{modificarAlbumBean.artistas}" var="artista" itemLabel="#{artista.nombre}" itemValue="#{artista.idArtista}"/>
                         </p:selectOneMenu>
+                        <p:message display="text" for="artistas" />
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -67,7 +72,7 @@
                     </p:outputPanel>
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:selectManyMenu id="generos" styleClass="ui-g-12" scrollHeight="120"
+                        <p:selectManyMenu id="generos" styleClass="ui-g-12" scrollHeight="120" showCheckbox="true"
                                          filter="true" filterMatchMode="contains"  value="#{modificarAlbumBean.idGenerosSeleccionados}">
                             <f:selectItems value="#{modificarAlbumBean.generos}" var="genero" itemLabel="#{genero.nombre}" itemValue="#{genero.idGenero}"/>
                         </p:selectManyMenu>

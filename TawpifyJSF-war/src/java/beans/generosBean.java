@@ -6,6 +6,7 @@
 package beans;
 
 import entities.Genero;
+import entities.Genero;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import session.GeneroFacade;
 
 /**
@@ -21,14 +22,16 @@ import session.GeneroFacade;
  * @author Asde
  */
 @Named(value = "generosBean")
-@SessionScoped
+@RequestScoped
 public class generosBean implements Serializable{
 
     @EJB
     private GeneroFacade gFacade;
 
+    @Inject
+    SessionBean session;
+
     private List<Genero> generos;
-    private List<Genero> generosFiltro;
 
     private Genero nuevoGenero;
 
@@ -42,32 +45,42 @@ public class generosBean implements Serializable{
     public void init() {
         buscarGeneros();
 
-        this.nuevoGenero = new Genero();
+        if (session.getGeneroSeleccionado() != null) {
+            this.nuevoGenero = session.getGeneroSeleccionado();
+        } else {
+            this.nuevoGenero = new Genero();
+        }
     }
 
     public void SeleccionarGenero(Integer idGenero) {
         this.nuevoGenero = gFacade.find(idGenero);
+        session.setGeneroSeleccionado(nuevoGenero);
     }
 
     private void buscarGeneros() {
         this.generos = gFacade.findAll();
-        this.generosFiltro = new ArrayList<>(generos);
     }
 
     public void crearGenero() {
         gFacade.create(nuevoGenero);
         this.nuevoGenero = new Genero();
+
+        session.setGeneroSeleccionado(null);
         buscarGeneros();
     }
 
     public void modificarGenero() {
         gFacade.edit(nuevoGenero);
         nuevoGenero = new Genero();
+
+        session.setGeneroSeleccionado(null);
         buscarGeneros();
     }
 
     public void eliminarGenero(Integer idGenero) {
         gFacade.remove(gFacade.find(idGenero));
+
+        session.setGeneroSeleccionado(null);
         buscarGeneros();
     }
 
@@ -77,14 +90,6 @@ public class generosBean implements Serializable{
 
     public void setGeneros(List<Genero> generos) {
         this.generos = generos;
-    }
-
-    public List<Genero> getGenerosFiltro() {
-        return generosFiltro;
-    }
-
-    public void setGenerosFiltro(List<Genero> generosFiltro) {
-        this.generosFiltro = generosFiltro;
     }
 
     public Genero getNuevoGenero() {

@@ -74,11 +74,13 @@ public class CancionesBean {
         this.idListaSeleccionada = 0;
         this.idAlbumSeleccionado = 0;
 
-        if(session.getCancionSeleccionada() != null) {
+        if (session.getCancionSeleccionada() != null) {
             this.nuevaCancion = session.getCancionSeleccionada();
         } else {
             this.nuevaCancion = new Cancion();
         }
+
+        resetFiltro();
     }
 
     public void SeleccionarCancion(Integer idCancion) {
@@ -87,10 +89,19 @@ public class CancionesBean {
     }
 
     private void initListas() {
-        this.canciones = cFacade.findAll();
+        if (session.getCancionesFiltrados() != null) {
+            this.canciones = new ArrayList<>(session.getCancionesFiltrados());
+        } else {
+            this.canciones = cFacade.selectCancionesOrdenadas();
+        }
+
         this.albumes = alFacade.findAll();
         this.artistas = aFacade.findAll();
         this.listasReproduccion = listaFacade.findAll();
+    }
+
+    private void resetFiltro() {
+        session.setCancionesFiltrados(null);
     }
 
     public String crearCancion() {
@@ -116,11 +127,14 @@ public class CancionesBean {
         if (!nuevaCancion.getListaReproduccionCollection().contains(listaSeleccionada)) {
             nuevaCancion.getListaReproduccionCollection().add(listaSeleccionada);
             cFacade.edit(nuevaCancion);
+
+            listaSeleccionada.getCancionCollection().add(nuevaCancion);
+            listaFacade.edit(listaSeleccionada);
         }
 
         this.nuevaCancion = new Cancion();
         this.idListaSeleccionada = 0;
-        
+
         this.session.setCancionSeleccionada(null);
         initListas();
     }
@@ -129,15 +143,22 @@ public class CancionesBean {
         List<Artista> a = new ArrayList<>();
         List<Album> al = new ArrayList<>();
 
-        for(String aAux : idArtistasSeleccionados) {
+        for (String aAux : idArtistasSeleccionados) {
             a.add(aFacade.find(Integer.parseInt(aAux)));
         }
 
-        for(String alAux : idAlbumesSeleccionados) {
+        for (String alAux : idAlbumesSeleccionados) {
             al.add(alFacade.find(Integer.parseInt(alAux)));
         }
 
         this.canciones = new ArrayList<>(cFacade.filtrarCanciones(a, al));
+
+        // FOLLADA QUE TE FLIPAS
+        if (!a.isEmpty() || !al.isEmpty()) {
+            session.setCancionesFiltrados(this.canciones);
+        } else {
+            session.setCancionesFiltrados(null);
+        }
     }
 
     public String formatearFecha(Date date) {

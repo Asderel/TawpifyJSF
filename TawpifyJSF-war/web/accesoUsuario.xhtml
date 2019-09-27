@@ -34,6 +34,7 @@
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                         <p:inputText id="emailInput" value="#{accesoBean.nombre}" placeholder="Email" styleClass="ui-g-12"
                                      required="true" requiredMessage="Campo obligatorio"/>
+                        <p:message for="emailInput" display="text" />
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -42,8 +43,9 @@
                         <p:outputLabel for="passInput" value="Password" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:password id="passInput" value="#{accesoBean.password}"
+                        <p:password id="passInput" value="#{accesoBean.password}" styleClass="ui-g-12 "
                                     required="true" requiredMessage="Campo obligatorio"/>
+                        <p:message for="passInput" display="text" />
                     </p:outputPanel>
                 </p:outputPanel>
 

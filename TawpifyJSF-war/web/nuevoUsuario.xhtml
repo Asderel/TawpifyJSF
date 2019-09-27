@@ -9,11 +9,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="titulo">
-        Nueva usuario
-    </ui:define>
-
-    <ui:define name="contenidoBadge">
-        WOLOLOO
+        Nuevo usuario
     </ui:define>
 
     <ui:define name="contenidoJumbotron">
@@ -38,6 +34,7 @@
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                         <p:inputText id="nombreInput" value="#{loginBean.u.nombre}" placeholder="Nombre" styleClass="ui-g-12"
                                      required="true" requiredMessage="Campo obligatorio" />
+                        <p:message for="nombreInput" display="text" />
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -57,6 +54,7 @@
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                         <p:inputText id="emailInput" value="#{loginBean.u.email}" placeholder="Email" styleClass="ui-g-12"
                                      required="true" requiredMessage="Campo obligatorio"/>
+                        <p:message for="emailInput" display="text" />
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -67,6 +65,7 @@
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                         <p:password id="passInput" value="#{loginBean.u.contrasena}"
                                     feedback="true" required="true" requiredMessage="Campo obligatorio"/>
+                        <p:message for="passInput" display="text" />
                     </p:outputPanel>
                 </p:outputPanel>
 

@@ -36,7 +36,8 @@
                         <p:outputLabel for="nombreInput" value="Nombre" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:inputText id="nombreInput" value="#{nuevoAlbumBean.nuevoAlbum.nombre}" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
+                        <p:inputText id="nombreInput" value="#{nuevoAlbumBean.nuevoAlbum.nombre}" placeholder="Nombre" required="true" requiredMessage="Campo obligatorio" styleClass="ui-g-12"/>
+                        <p:message display="text" for="nombreInput" />
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -45,7 +46,8 @@
                         <p:outputLabel for="fechaInput" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0"/>
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:calendar id="fechaInput" value="#{nuevoAlbumBean.nuevoAlbum.fechaSalida}" required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad" mask="true" pattern="dd-MM-yyyy"/>
+                        <p:calendar id="fechaInput" value="#{nuevoAlbumBean.nuevoAlbum.fechaSalida}" required="true" requiredMessage="Campo obligatorio" showOn="button" styleClass="ui-g-12 ui-g-nopad" mask="true" pattern="dd-MM-yyyy"/>
+                        <p:message display="text" for="fechaInput" />
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -55,9 +57,11 @@
                     </p:outputPanel>
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:selectOneMenu id="artistas" effect="fade" styleClass="ui-g-12" filter="true" filterMatchMode="contains" value="#{nuevoAlbumBean.idArtistaSeleccionado}">
+                        <p:selectOneMenu id="artistas" effect="fade" styleClass="ui-g-12" filter="true" filterMatchMode="contains" value="#{nuevoAlbumBean.idArtistaSeleccionado}"
+                                         required="true" requiredMessage="Campo obligatorio">
                             <f:selectItems value="#{nuevoAlbumBean.artistas}" var="artista" itemLabel="#{artista.nombre}" itemValue="#{artista.idArtista}"/>
                         </p:selectOneMenu>
+                        <p:message display="text" for="artistas" />
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -68,7 +72,7 @@
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                         <p:selectManyMenu id="generos" styleClass="ui-g-12" scrollHeight="120"
-                                         filter="true" filterMatchMode="contains"  value="#{nuevoAlbumBean.idGenerosSeleccionados}">
+                                         filter="true" filterMatchMode="contains"  value="#{nuevoAlbumBean.idGenerosSeleccionados}" showCheckbox="true">
                             <f:selectItems value="#{nuevoAlbumBean.generos}" var="genero" itemLabel="#{genero.nombre}" itemValue="#{genero.idGenero}"/>
                         </p:selectManyMenu>
                     </p:outputPanel>
@@ -76,7 +80,7 @@
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:commandButton value="Listo" action="#{nuevoAlbumBean.modificarAlbum()}"
-                                     styleClass="boton-warning ui-g-12 ui-g-nopad"/>
+                                     styleClass="boton-warning ui-g-12 ui-g-nopad" update="@form"/>
                 </p:outputPanel>
             </p:outputPanel>
 

@@ -9,13 +9,13 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="titulo">
-        Modifica usuario
+        #{modificarUsuarioBean.u.idUsuario != null ? 'Modificar usuario' : 'Crear usuario'}
     </ui:define>
 
     <ui:define name="contenidoJumbotron">
-        <h:outputText style="font-size: 2em" value="Creacion de Usuario"/>
+        <h:outputText style="font-size: 2em" value="#{modificarUsuarioBean.u.idUsuario != null ? 'Modificacion de usuario' : 'Creacion de usuario'}"/>
         <p style="font-size: 1em">
-            Modifica el usuario seleccionado
+            #{modificarUsuarioBean.u.idUsuario != null ? 'Modifica el usuario seleccionado' : 'Crea un nuevo usuario'}
         </p>
     </ui:define>
 
@@ -34,6 +34,7 @@
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                         <p:inputText id="nombreInput" value="#{modificarUsuarioBean.u.nombre}" placeholder="Nombre" styleClass="ui-g-12"
                                      required="true" requiredMessage="Campo obligatorio" />
+                        <p:message for="nombreInput" display="text" />
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -43,6 +44,7 @@
                     </p:outputPanel>
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                         <p:inputText id="apodoInput" value="#{modificarUsuarioBean.u.apodo}" placeholder="Apodo" styleClass="ui-g-12"/>
+                        <p:message for="apodoInput" display="text" />
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -53,6 +55,7 @@
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                         <p:inputText id="emailInput" value="#{modificarUsuarioBean.u.email}" placeholder="Email" styleClass="ui-g-12"
                                      required="true" requiredMessage="Campo obligatorio"/>
+                        <p:message for="apodoInput" display="text" />
                     </p:outputPanel>
                 </p:outputPanel>
 
@@ -63,15 +66,14 @@
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                         <p:password id="passInput" value="#{modificarUsuarioBean.u.contrasena}"
                                     feedback="true" required="true" requiredMessage="Campo obligatorio"/>
+                        <p:message for="passInput" display="text" />
                     </p:outputPanel>
                 </p:outputPanel>
 
                 <p:outputPanel styleClass="ui-g-12" rendered="#{not empty sessionBean.usuarioConectado and sessionBean.usuarioConectado.administrador eq 1}">
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:outputLabel for="passInput" value="Password" styleClass="ui-g-12" style="padding-left: 0"/>
-                    </p:outputPanel>
-                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                        <p:selectBooleanCheckbox value="#{modificarUsuarioBean.admin}" itemLabel="Administrador" required="true" requiredMessage="Campo obligatorio"/>
+                        <p:selectBooleanCheckbox id="adminInput" value="#{modificarUsuarioBean.admin}" itemLabel="Administrador" required="true" requiredMessage="Campo obligatorio"/>
+                        <p:message for="adminInput" display="text" />
                     </p:outputPanel>
                 </p:outputPanel>
 

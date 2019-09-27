@@ -10,8 +10,9 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import session.ArtistaFacade;
 
 /**
@@ -19,11 +20,14 @@ import session.ArtistaFacade;
  * @author Asde
  */
 @Named(value = "artistasBean")
-@SessionScoped
-public class ArtistasBean implements Serializable{
+@RequestScoped
+public class ArtistasBean implements Serializable {
 
     @EJB
     private ArtistaFacade aFacade;
+
+    @Inject
+    SessionBean session;
 
     private List<Artista> artistas;
 
@@ -39,11 +43,17 @@ public class ArtistasBean implements Serializable{
     public void init() {
         buscarArtistas();
 
-        this.nuevoArtista = new Artista();
+        if (session.getArtistaSeleccionado() != null) {
+            this.nuevoArtista = session.getArtistaSeleccionado();
+        } else {
+            this.nuevoArtista = new Artista();
+        }
     }
 
     public void SeleccionarArtista(Integer idArtista) {
         this.nuevoArtista = aFacade.find(idArtista);
+        session.setArtistaSeleccionado(nuevoArtista);
+
     }
 
     private void buscarArtistas() {
@@ -52,13 +62,17 @@ public class ArtistasBean implements Serializable{
 
     public void crearArtista() {
         aFacade.create(nuevoArtista);
+
         this.nuevoArtista = new Artista();
+        session.setArtistaSeleccionado(null);
         buscarArtistas();
     }
 
     public void modificarArtista() {
         aFacade.edit(nuevoArtista);
-        nuevoArtista = new Artista();
+
+        this.nuevoArtista = new Artista();
+        session.setArtistaSeleccionado(null);
         buscarArtistas();
     }
 

@@ -76,7 +76,7 @@
         <!-- MODALES -->
 
         <h:form id="crearListaDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
-            <p:dialog header="Nueva listaReproduccion" widgetVar="crearListaDialogo" showEffect="fold" hideEffect="fold" modal="true" position="top">
+            <p:dialog header="Nueva listaReproduccion" widgetVar="crearListaDialogo" showEffect="fold" hideEffect="fold" modal="true" position="center">
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:outputPanel styleClass="ui-g-12">
@@ -85,23 +85,11 @@
                         </p:outputPanel>
 
                         <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                            <p:inputText id="nombreInput" value="#{listasReproduccionBean.nuevaLista.nombre}" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
-                        </p:outputPanel>
-                    </p:outputPanel>
-
-                    <p:outputPanel styleClass="ui-g-12">
-                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                            <p:outputLabel for="fechaInput" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0"/>
-                        </p:outputPanel>
-
-
-                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                            <p:calendar id="fechaInput" value="#{listasReproduccionBean.nuevaLista.fechaCreacion}" mask="true" pattern="dd-MM-yyyy"
-                                        required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad"/>
+                            <p:inputText id="nombreInput" value="#{listasReproduccionBean.nuevaLista.nombre}" placeholder="Nombre" required="true" requiredMessage="Campo obligatorio" styleClass="ui-g-12"/>
+                            <p:message for="nombreInput" display="text" />
                         </p:outputPanel>
                     </p:outputPanel>
                 </p:outputPanel>
-
 
                 <p:outputPanel styleClass="ui-g-12" style="text-align: right">
                     <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"
@@ -114,7 +102,7 @@
         </h:form>
 
         <h:form id="modificarListaDialogo" styleClass="ui-g-12 ui-g-nopad" style="margin:0" >
-            <p:dialog header="Modifica la listaReproduccion seleccionada" widgetVar="modificarListaDialogo" showEffect="fold" hideEffect="fold" modal="true" position="top">
+            <p:dialog header="Modifica la listaReproduccion seleccionada" widgetVar="modificarListaDialogo" showEffect="fold" hideEffect="fold" modal="true" position="center">
 
                 <p:outputPanel styleClass="ui-g-12">
                     <p:autoUpdate />
@@ -125,7 +113,8 @@
                         </p:outputPanel>
 
                         <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                            <p:inputText id="nombreInputModificar" value="#{listasReproduccionBean.nuevaLista.nombre}" placeholder="Nombre" required="true" styleClass="ui-g-12"/>
+                            <p:inputText id="nombreInputModificar" value="#{listasReproduccionBean.nuevaLista.nombre}" placeholder="Nombre" required="true" requiredMessage="Campo obligatorio" styleClass="ui-g-12"/>
+                            <p:message for="nombreInputModificar" display="text" />
                         </p:outputPanel>
                     </p:outputPanel>
 
@@ -134,14 +123,14 @@
                             <p:outputLabel for="fechaInputModificar" value="Fecha lanzamiento" styleClass="ui-g-12" style="padding-left: 0"/>
                         </p:outputPanel>
 
-
                         <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                             <p:calendar id="fechaInputModificar" value="#{listasReproduccionBean.nuevaLista.fechaCreacion}" mask="true" pattern="dd-MM-yyyy"
-                                        required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad"/>
+                                        required="true" showOn="button" styleClass="ui-g-12 ui-g-nopad" requiredMessage="Campo obligatorio"/>
+                            <p:message for="fechaInputModificar" display="text" />
                         </p:outputPanel>
                     </p:outputPanel>
-                </p:outputPanel>
 
+                </p:outputPanel>
 
                 <p:outputPanel styleClass="ui-g-12" style="text-align: right">
                     <p:button icon="fa fa-times" value="Cancelar" styleClass="boton-warning" style="margin-right: 1.5em"

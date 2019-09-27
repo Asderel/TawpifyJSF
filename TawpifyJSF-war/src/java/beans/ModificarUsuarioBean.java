@@ -48,16 +48,12 @@ public class ModificarUsuarioBean {
         }
     }
 
-    @PreDestroy
-    public void destroy() {
-        session.setUsuarioSeleccinoado(null);
-    }
-
     public String modificarUsuario() {
+        u.setAdministrador(admin ? 1 : 0);
         uFacade.edit(u);
 
         if (u.getIdUsuario() != null) {
-            session.setUsuarioConectado(u);
+            session.setUsuarioSeleccinoado(null);
             return "usuarios";
         } else {
             return null;
@@ -65,6 +61,7 @@ public class ModificarUsuarioBean {
     }
 
     public String creearUsuario() {
+        u.setAdministrador(admin ? 1 : 0);
         uFacade.create(u);
 
         if (u.getIdUsuario() != null) {
