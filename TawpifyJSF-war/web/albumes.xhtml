@@ -60,7 +60,7 @@
                     <p:dataTable id="tablaAlbumes" reflow="true" widgetVar="tablaAlbumes" value="#{albumesBean.albumes}" var="al">
                         <p:autoUpdate/>
                         <f:facet name="header">
-                            <p:outputPanel style="display: flex; justify-content: space-between; margin-bottom: .5em">
+                            <p:outputPanel style="display: flex; justify-content: #{sessionBean.usuarioConectado.administrador eq 1 ? 'space-between' : 'flex-end'}; margin-bottom: .5em">
                                 <p:outputPanel layout="inline">
                                     <p:commandButton value="Nuevo album" action="#{albumesBean.crearAlbum()}" icon="fa fa-plus" update="@form" styleClass="boton-warning-transparente"/>
                                 </p:outputPanel>
@@ -89,13 +89,13 @@
                                              style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
                             <p:tooltip for="botonModificarAlbum" value="Ver album" position="top"/>
 
-                            <p:commandButton id="botonModificarAlbum" icon="fa fa-pencil-square-o" action="#{albumesBean.modificarAlbum(al.idAlbum)}"
+                            <p:commandButton id="botonModificarAlbum" icon="fa fa-pencil-square-o" action="#{albumesBean.modificarAlbum(al.idAlbum)}" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"
                                              style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
-                            <p:tooltip for="botonModificarAlbum" value="Modificar album" position="top"/>
+                            <p:tooltip for="botonModificarAlbum" value="Modificar album" position="top" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
 
-                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarAlbum" styleClass="boton-warning-transparente-sin-borde"
+                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarAlbum" styleClass="boton-warning-transparente-sin-borde" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"
                                              action="#{albumesBean.eliminarAlbum(al.idAlbum)}" update="formAlbumes"/>
-                            <p:tooltip for="botonEliminarAlbum" value="Eliminar album" position="top" />
+                            <p:tooltip for="botonEliminarAlbum" value="Eliminar album" position="top" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
                         </p:column>
                     </p:dataTable>
 
@@ -118,7 +118,7 @@
                     fila = cuerpo[x].getElementsByTagName('tr');
                     for (i = 0; fila.length > i; i++) {
                         columnas = fila[i].getElementsByTagName("td");
-                        for (j = 0; (columnas.length - 1) > j; j++) {
+                        for (j = 0; (columnas.length) > j; j++) {
                             valor = columnas[j].textContent || columnas[j].innerText;
                             if (valor.toUpperCase().indexOf(filtro) > -1) {
                                 fila[i].style.display = "";

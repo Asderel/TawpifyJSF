@@ -11,7 +11,6 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -70,7 +69,7 @@ public class ListasReproduccionBean {
         nuevaLista.setIdUsuario(session.getUsuarioConectado());
         nuevaLista.setFechaCreacion(Date.from(Instant.now()));
         listaFacade.create(nuevaLista);
-        
+
         session.setListaSeleccionada(null);
         cargarlistas();
 
