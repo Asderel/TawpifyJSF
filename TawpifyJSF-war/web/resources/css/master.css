@@ -160,6 +160,25 @@ body {
     padding: .25em .6em
 }
 
+.card {
+    border: 1px solid #F39C12;
+    border-radius: 3px;
+    background: #303030;
+    padding: 0 !important;
+}
+
+.card-cabecera {
+    background: #444;
+    padding: 0.75rem 1.25rem !important;
+}
+
+.card-cuerpo {
+    padding: 1.25rem !important;
+}
+.card-pie {
+    border-top: 1px solid #444;
+}
+
 /* SKINNING PRIMEFACES DEL DEMONIO*/
 .ui-selectlistbox-filter-container .ui-icon{
     display: none !important;

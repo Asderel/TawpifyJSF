@@ -57,48 +57,66 @@
             <p:outputPanel styleClass="ui-g-12" style="margin-top: 2em">
                 <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
 
-                    <p:dataTable id="tablaAlbumes" reflow="true" widgetVar="tablaAlbumes" value="#{albumesBean.albumes}" var="al">
-                        <p:autoUpdate/>
-                        <f:facet name="header">
-                            <p:outputPanel style="display: flex; justify-content: #{sessionBean.usuarioConectado.administrador eq 1 ? 'space-between' : 'flex-end'}; margin-bottom: .5em">
-                                <p:outputPanel layout="inline">
-                                    <p:commandButton value="Nuevo album" action="#{albumesBean.crearAlbum()}" icon="fa fa-plus" update="@form" styleClass="boton-warning-transparente"/>
-                                </p:outputPanel>
-
-                                <p:outputPanel layout="inline">
-                                    <p:inputText id="globalFilter" onkeyup="filtrar()" style="width: 15em" placeholder="Filtra en la tabla"/>
-                                </p:outputPanel>
-
+                    <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                        <p:outputPanel style="display: flex; justify-content: #{sessionBean.usuarioConectado.administrador eq 1 ? 'space-between' : 'flex-end'}; margin-bottom: .5em">
+                            <p:outputPanel layout="inline">
+                                <p:commandButton value="Nuevo album" action="#{albumesBean.crearAlbum()}" icon="fa fa-plus" update="@form" styleClass="boton-warning-transparente"/>
                             </p:outputPanel>
-                        </f:facet>
 
-                        <p:column headerText="Artista" filterBy="#{al.idArtista.nombre}" filterStyle="display: none">
-                            <h:outputText value="#{al.idArtista.nombre}" />
-                        </p:column>
+                            <p:outputPanel layout="inline">
+                                <p:inputText id="globalFilter" onkeyup="filtrar()" style="width: 15em" placeholder="Filtra en la tabla"/>
+                            </p:outputPanel>
 
-                        <p:column headerText="Nombre" filterBy="#{al.nombre}" filterStyle="display: none">
-                            <h:outputText value="#{al.nombre}" />
-                        </p:column>
+                        </p:outputPanel>
 
-                        <p:column headerText="Fecha salida" filterBy="#{albumesBean.formatearFecha(al.fechaSalida)}" filterStyle="display: none">
-                            <h:outputText value="#{albumesBean.formatearFecha(al.fechaSalida)}" />
-                        </p:column>
+                        <p:repeat var="al" value="#{albumesBean.albumes}">
+                            <div class="ui-g-3 ui-sm-12" data-aos="zoom-in">
+                                <p:outputPanel styleClass="card ui-g-12">
+                                    <p:outputPanel styleClass="card-cabecera ui-g-12">
+                                        #{al.nombre}
+                                    </p:outputPanel>
 
-                        <p:column width="15%" style="text-align: center">
-                            <p:commandButton id="botonVerAlbum" icon="fa fa-eye" action="#{albumesBean.verAlbum(al.idAlbum)}"
-                                             style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
-                            <p:tooltip for="botonModificarAlbum" value="Ver album" position="top"/>
+                                    <p:outputPanel styleClass="card-cuerpo ui-g-12">
+                                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                                            <p:outputPanel styleClass="ui-g-2 ui-g-nopad" style="margin-right: 1em" layout="inline">
+                                                <h:outputText value="Artista:" />
+                                            </p:outputPanel>
+                                            <p:outputPanel styleClass="ui-g-10 ui-g-nopad" layout="inline">
+                                                <h:outputText value="#{al.idArtista.nombre}" />
+                                            </p:outputPanel>
+                                        </p:outputPanel>
 
-                            <p:commandButton id="botonModificarAlbum" icon="fa fa-pencil-square-o" action="#{albumesBean.modificarAlbum(al.idAlbum)}" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"
-                                             style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
-                            <p:tooltip for="botonModificarAlbum" value="Modificar album" position="top" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
+                                        <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
+                                            <p:outputPanel styleClass="ui-g-2 ui-g-nopad" style="margin-right: 1em" layout="inline">
+                                                <h:outputText value="Fecha salida" />
+                                            </p:outputPanel>
+                                            <p:outputPanel styleClass="ui-g-10 ui-g-nopad" layout="inline">
+                                                <h:outputText value="#{albumesBean.formatearFecha(al.fechaSalida)}" />
+                                            </p:outputPanel>
+                                        </p:outputPanel>
+                                    </p:outputPanel>
 
-                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarAlbum" styleClass="boton-warning-transparente-sin-borde" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"
-                                             action="#{albumesBean.eliminarAlbum(al.idAlbum)}" update="formAlbumes"/>
-                            <p:tooltip for="botonEliminarAlbum" value="Eliminar album" position="top" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
-                        </p:column>
-                    </p:dataTable>
-
+                                    <p:outputPanel styleClass="card-pie ui-g-12" style="text-align: center">
+                                        <p:outputPanel styleClass="#{sessionBean.usuarioConectado.administrador eq 1 ? 'ui-g-4' : 'ui-g-12'} ui-g-nopad">
+                                            <p:commandButton id="botonVerAlbum" icon="fa fa-eye" action="#{albumesBean.verAlbum(al.idAlbum)}"
+                                                             style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
+                                            <p:tooltip for="botonModificarAlbum" value="Ver album" position="top"/>
+                                        </p:outputPanel>
+                                        <p:outputPanel styleClass="ui-g-4 ui-g-nopad" rendered="#{sessionBean.usuarioConectado.administrador eq 1}">
+                                            <p:commandButton id="botonModificarAlbum" icon="fa fa-pencil-square-o" action="#{albumesBean.modificarAlbum(al.idAlbum)}"
+                                                             style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
+                                            <p:tooltip for="botonModificarAlbum" value="Modificar album" position="top" />
+                                        </p:outputPanel>
+                                        <p:outputPanel styleClass="ui-g-4 ui-g-nopad" rendered="#{sessionBean.usuarioConectado.administrador eq 1}">
+                                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarAlbum" styleClass="boton-warning-transparente-sin-borde"
+                                                             action="#{albumesBean.eliminarAlbum(al.idAlbum)}" update="formAlbumes"/>
+                                            <p:tooltip for="botonEliminarAlbum" value="Eliminar album" position="top"/>
+                                        </p:outputPanel>
+                                    </p:outputPanel>
+                                </p:outputPanel>
+                            </div>
+                        </p:repeat>
+                    </p:outputPanel>
                 </p:outputPanel>
 
             </p:outputPanel>
