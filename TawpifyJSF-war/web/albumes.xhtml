@@ -59,39 +59,35 @@
 
                     <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
                         <p:outputPanel style="display: flex; justify-content: #{sessionBean.usuarioConectado.administrador eq 1 ? 'space-between' : 'flex-end'}; margin-bottom: .5em">
-                            <p:outputPanel layout="inline">
+                            <p:outputPanel layout="inline" rendered="#{sessionBean.usuarioConectado.administrador eq 1}">
                                 <p:commandButton value="Nuevo album" action="#{albumesBean.crearAlbum()}" icon="fa fa-plus" update="@form" styleClass="boton-warning-transparente"/>
                             </p:outputPanel>
 
                             <p:outputPanel layout="inline">
-                                <p:inputText id="globalFilter" onkeyup="filtrar()" style="width: 15em" placeholder="Filtra en la tabla"/>
+                                <p:inputText id="globalFilter" onkeyup="filtrar($(this), 'card')" style="width: 15em" placeholder="Filtra en la tabla"/>
                             </p:outputPanel>
 
                         </p:outputPanel>
 
                         <p:repeat var="al" value="#{albumesBean.albumes}">
                             <div class="ui-g-3 ui-sm-12" data-aos="zoom-in">
-                                <p:outputPanel styleClass="card ui-g-12">
+                                <p:outputPanel id="card" styleClass="card ui-g-12">
                                     <p:outputPanel styleClass="card-cabecera ui-g-12">
-                                        #{al.nombre}
+                                        <h:outputText id="cabeceraCard" value="#{al.nombre}" />
                                     </p:outputPanel>
 
                                     <p:outputPanel styleClass="card-cuerpo ui-g-12">
                                         <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                                            <p:outputPanel styleClass="ui-g-2 ui-g-nopad" style="margin-right: 1em" layout="inline">
-                                                <h:outputText value="Artista:" />
-                                            </p:outputPanel>
-                                            <p:outputPanel styleClass="ui-g-10 ui-g-nopad" layout="inline">
-                                                <h:outputText value="#{al.idArtista.nombre}" />
+                                            <p:outputPanel styleClass="ui-g-12 ui-g-nopad" layout="inline">
+                                                <h:outputText value="Artista:   " />
+                                                <h:outputText id="contenidoCard1" value="#{al.idArtista.nombre}" style="margin-left: 1em"/>
                                             </p:outputPanel>
                                         </p:outputPanel>
 
                                         <p:outputPanel styleClass="ui-g-12 ui-g-nopad">
-                                            <p:outputPanel styleClass="ui-g-2 ui-g-nopad" style="margin-right: 1em" layout="inline">
-                                                <h:outputText value="Fecha salida" />
-                                            </p:outputPanel>
-                                            <p:outputPanel styleClass="ui-g-10 ui-g-nopad" layout="inline">
-                                                <h:outputText value="#{albumesBean.formatearFecha(al.fechaSalida)}" />
+                                            <p:outputPanel styleClass="ui-g-12 ui-g-nopad" layout="inline">
+                                                <h:outputText value="Fecha salida:" />
+                                                <h:outputText id="contenidoCard2" value="#{albumesBean.formatearFecha(al.fechaSalida)}" style="margin-left: 1em"/>
                                             </p:outputPanel>
                                         </p:outputPanel>
                                     </p:outputPanel>
@@ -123,30 +119,43 @@
         </h:form>
 
         <script type="text/javascript">
-            function filtrar() {
-                // Declare variables
-                var input, filtro, tabla, cuerpo, fila, columnas, x, i, j, valor;
-                input = document.getElementById("formAlbumes:tablaAlbumes:globalFilter");
-                filtro = input.value.toUpperCase();
+            function filtrar(filtroInput, tabla) {
+                var input, filtro;
+                input = filtroInput.val();
+                filtro = input.toUpperCase();
+                elementos = $('[id*=' + tabla + ']');
 
-                tabla = document.getElementById('formAlbumes:tablaAlbumes');
-                cuerpo = tabla.getElementsByTagName('tbody');
+                elementos.each(function () {
+                    var valorCabecera = $(this).find('[id*=cabeceraCard]');
+                    var encontrado;
 
-                for (x = 0; cuerpo.length; x++) {
-                    fila = cuerpo[x].getElementsByTagName('tr');
-                    for (i = 0; fila.length > i; i++) {
-                        columnas = fila[i].getElementsByTagName("td");
-                        for (j = 0; (columnas.length) > j; j++) {
-                            valor = columnas[j].textContent || columnas[j].innerText;
-                            if (valor.toUpperCase().indexOf(filtro) > -1) {
-                                fila[i].style.display = "";
-                                break;
-                            } else {
-                                fila[i].style.display = "none";
-                            }
-                        }
+                    console.log(valorCabecera);
+                    if (valorCabecera.text().toUpperCase().indexOf(filtro) > -1) {
+                        encontrado = true;
+                    } else {
+                        encontrado = false;
                     }
-                }
+
+                    if (!encontrado) {
+                        var contenido = $(this).find('[id*=contenidoCard]');
+
+                        contenido.each(function () {
+                            if ($(this).text().toUpperCase().indexOf(filtro) > -1) {
+                                encontrado = true;
+                                return false;
+                            } else {
+                                encontrado = false;
+                            }
+                        });
+                    }
+
+                    if (encontrado) {
+                        $(this).parent().show();
+                    } else {
+                        $(this).parent().hide();
+                    }
+
+                });
             }
         </script>
 
