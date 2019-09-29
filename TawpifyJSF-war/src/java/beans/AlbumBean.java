@@ -55,7 +55,7 @@ public class AlbumBean {
     @PostConstruct
     public void init() {
         this.album = session.getAlbumSeleccionado();
-        this.listasReproduccion = listaFacade.findAll();
+        this.listasReproduccion = session.getUsuarioConectado().getAdministrador() == 1 ? listaFacade.findAll() : listaFacade.selectListasReproduccionByUsuario(session.getUsuarioConectado());
         this.idListaSeleccionada = "";
 
         if (session.getCancionSeleccionada() != null) {

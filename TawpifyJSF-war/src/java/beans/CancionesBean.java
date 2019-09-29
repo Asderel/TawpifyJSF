@@ -94,10 +94,10 @@ public class CancionesBean {
         } else {
             this.canciones = cFacade.selectCancionesOrdenadas();
         }
-        
+
         this.albumes = alFacade.findAll();
         this.artistas = aFacade.findAll();
-        this.listasReproduccion = listaFacade.findAll();
+        this.listasReproduccion = this.listasReproduccion = session.getUsuarioConectado().getAdministrador() == 1 ? listaFacade.findAll() : listaFacade.selectListasReproduccionByUsuario(session.getUsuarioConectado());
     }
 
     private void resetFiltro() {
