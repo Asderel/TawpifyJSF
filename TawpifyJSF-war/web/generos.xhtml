@@ -44,21 +44,24 @@
                         </f:facet>
 
                         <p:column headerText="Nombre" filterBy="#{g.nombre}" filterStyle="display: none">
-                            <h:outputText value="#{g.nombre}" />
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <h:outputText value="#{g.nombre}" />
+                            </span>
                         </p:column>
 
                         <p:column width="10%">
-                            <p:commandButton id="botonModificarGenero" icon="fa fa-pencil-square-o" action="#{generosBean.SeleccionarGenero(g.idGenero)}" oncomplete="PF('dialogoModificar').show();"
-                                             update="modificarDialogo" style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
-                            <p:tooltip for="botonModificarGenero" value="Modificar genero" position="top" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
+                            <span data-aos="fade-in" class="ui-g-nopad">
+                                <p:commandButton id="botonModificarGenero" icon="fa fa-pencil-square-o" action="#{generosBean.SeleccionarGenero(g.idGenero)}" oncomplete="PF('dialogoModificar').show();"
+                                                 update="modificarDialogo" style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
 
-                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarGenero" styleClass="boton-warning-transparente-sin-borde"
-                                             action="#{generosBean.eliminarGenero(g.idGenero)}" update="formGeneros" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
-                            <p:tooltip for="botonEliminarGenero" value="Eliminar genero" position="top" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
+                                <p:tooltip for="botonModificarGenero" value="Modificar genero" position="top" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
+
+                                <p:commandButton icon="fa fa-trash-o" id="botonEliminarGenero" styleClass="boton-warning-transparente-sin-borde"
+                                                 action="#{generosBean.eliminarGenero(g.idGenero)}" update="formGeneros" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
+                                <p:tooltip for="botonEliminarGenero" value="Eliminar genero" position="top" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
+                            </span>
                         </p:column>
-
                     </p:dataTable>
-
                 </p:outputPanel>
             </p:outputPanel>
         </h:form>

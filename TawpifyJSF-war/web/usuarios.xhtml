@@ -44,29 +44,39 @@
                         </f:facet>
 
                         <p:column headerText="Nombre" filterBy="#{u.nombre}" filterStyle="display: none" filterMatchMode="contains">
-                            <h:outputText value="#{u.nombre}" />
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <h:outputText value="#{u.nombre}" />
+                            </span>
                         </p:column>
 
                         <p:column headerText="Apodo" filterBy="#{u.email}" filterStyle="display: none" filterMatchMode="contains">
-                            <h:outputText value="#{u.email}" />
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <h:outputText value="#{u.email}" />
+                            </span>
                         </p:column>
 
                         <p:column headerText="Email" filterBy="#{u.apodo}" filterStyle="display: none" filterMatchMode="contains">
-                            <h:outputText value="#{empty u.apodo ? '' : u.apodo}" />
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <h:outputText value="#{empty u.apodo ? '' : u.apodo}" />
+                            </span>
                         </p:column>
 
                         <p:column headerText="Administrador" filterBy="#{u.administrador}" filterStyle="display: none" filterMatchMode="contains">
-                            <h:outputText value="#{u.administrador eq 1 ? 'SI' : 'NO'}" />
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <h:outputText value="#{u.administrador eq 1 ? 'SI' : 'NO'}" />
+                            </span>
                         </p:column>
 
                         <p:column width="8%">
-                            <p:commandButton id="botonModificarUsuario" icon="fa fa-pencil-square-o" styleClass="boton-warning-transparente-sin-borde"
-                                             action="#{usuariosBean.verDetalleUsuario(u.idUsuario)}" style="margin-right: 1em"/>
-                            <p:tooltip for="botonModificarUsuario" value="Modificar usuario" position="top"/>
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <p:commandButton id="botonModificarUsuario" icon="fa fa-pencil-square-o" styleClass="boton-warning-transparente-sin-borde"
+                                                 action="#{usuariosBean.verDetalleUsuario(u.idUsuario)}" style="margin-right: 1em"/>
+                                <p:tooltip for="botonModificarUsuario" value="Modificar usuario" position="top"/>
 
-                            <p:commandButton id="botonEliminarUsuario" icon="fa fa-trash-o" styleClass="boton-warning-transparente-sin-borde"
-                                             action="#{usuariosBean.eliminarUsuario(u.idUsuario)}" update="@form"/>
-                            <p:tooltip for="botonEliminarUsuario" value="Eliminar usuario" position="top"/>
+                                <p:commandButton id="botonEliminarUsuario" icon="fa fa-trash-o" styleClass="boton-warning-transparente-sin-borde"
+                                                 action="#{usuariosBean.eliminarUsuario(u.idUsuario)}" update="@form"/>
+                                <p:tooltip for="botonEliminarUsuario" value="Eliminar usuario" position="top"/>
+                            </span>
                         </p:column>
                     </p:dataTable>
 

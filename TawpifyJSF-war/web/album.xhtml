@@ -67,29 +67,37 @@
                         </f:facet>
 
                         <p:column width="10%" style="text-align: center">
-                            <a class="boton-warning-transparente fa fa-play-circle-o" target="_blank" href="#{c.url}" style="font-size: 2em; width: 1.5em;"/>
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <a class="boton-warning-transparente fa fa-play-circle-o" target="_blank" href="#{c.url}" style="font-size: 2em; width: 1.5em;"/>
+                            </span>
                         </p:column>
 
                         <p:column headerText="Nombre" filterBy="#{c.nombre}" filterStyle="display: none">
-                            <h:outputText value="#{c.nombre}" />
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <h:outputText value="#{c.nombre}" />
+                            </span>
                         </p:column>
 
                         <p:column headerText="Fecha salida" filterBy="#{albumBean.formatearFecha(c.fechaSalida)}" filterStyle="display: none">
-                            <h:outputText value="#{albumBean.formatearFecha(c.fechaSalida)}" />
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <h:outputText value="#{albumBean.formatearFecha(c.fechaSalida)}" />
+                            </span>
                         </p:column>
 
                         <p:column width="15%" style="text-align: center">
-                            <p:commandButton id="botonIncluirCancion" icon="fa fa-plus-circle" action="#{albumBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('incluirDialogo').show();"
-                                             style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde" update="incluirCancionDialogo"/>
-                            <p:tooltip for="botonIncluirCancion" value="Incluir cancion en lista de reproduccion" position="top"/>
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <p:commandButton id="botonIncluirCancion" icon="fa fa-plus-circle" action="#{albumBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('incluirDialogo').show();"
+                                                 style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde" update="incluirCancionDialogo"/>
+                                <p:tooltip for="botonIncluirCancion" value="Incluir cancion en lista de reproduccion" position="top"/>
 
-                            <p:commandButton id="botonModificarCancion" icon="fa fa-pencil-square-o" action="#{albumBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('modificarCancionDialogo').show()"
-                                             style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde" update="modificarCancionDialogo" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
-                            <p:tooltip for="botonModificarCancion" value="Modificar cancion" position="top" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
+                                <p:commandButton id="botonModificarCancion" icon="fa fa-pencil-square-o" action="#{albumBean.SeleccionarCancion(c.idCancion)}" oncomplete="PF('modificarCancionDialogo').show()"
+                                                 style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde" update="modificarCancionDialogo" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
+                                <p:tooltip for="botonModificarCancion" value="Modificar cancion" position="top" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
 
-                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarCancion" styleClass="boton-warning-transparente-sin-borde" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"
-                                             action="#{albumBean.eliminarCancion(c.idCancion)}" update="formCanciones"/>
-                            <p:tooltip for="botonEliminarCancion" value="Eliminar cancion" position="top" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
+                                <p:commandButton icon="fa fa-trash-o" id="botonEliminarCancion" styleClass="boton-warning-transparente-sin-borde" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"
+                                                 action="#{albumBean.eliminarCancion(c.idCancion)}" update="formCanciones"/>
+                                <p:tooltip for="botonEliminarCancion" value="Eliminar cancion" position="top" rendered="#{sessionBean.usuarioConectado.administrador eq 1}"/>
+                            </span>
                         </p:column>
                     </p:dataTable>
 

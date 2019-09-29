@@ -10,6 +10,7 @@
             <ui:insert name="titulo"/>
         </title>
         <h:outputStylesheet name="css/master.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
         <ui:insert name="cssImport"/>
     </h:head>
     <h:body styleClass="ui-g-nopad">
@@ -89,6 +90,13 @@
             <!-- FIN CONTENIDO -->
 
         </p:outputPanel>
+        <p:outputPanel styleClass="ui-g-12" style="height: 3em">
+
+        </p:outputPanel>
     </h:body>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </html>
 

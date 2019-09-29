@@ -44,26 +44,32 @@
                         </f:facet>
 
                         <p:column headerText="Nombre" filterBy="#{l.nombre}" filterStyle="display: none">
-                            <h:outputText value="#{l.nombre}" />
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <h:outputText value="#{l.nombre}" />
+                            </span>
                         </p:column>
 
                         <p:column headerText="Fecha creacion" filterBy="#{listasReproduccionBean.formatearFecha(l.fechaCreacion)}" filterStyle="display: none">
-                            <h:outputText value="#{listasReproduccionBean.formatearFecha(l.fechaCreacion)}" />
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <h:outputText value="#{listasReproduccionBean.formatearFecha(l.fechaCreacion)}" />
+                            </span>
                         </p:column>
 
                         <p:column width="15%" style="text-align: center">
-                            <p:commandButton id="botonVerLista" icon="fa fa-eye" action="#{listasReproduccionBean.verLista(l.idListaReproduccion)}" oncomplete="PF('modificarListaDialogo').show();"
-                                             style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
-                            <p:tooltip for="botonVerLista" value="Ver listaReproduccion" position="top"/>
+                            <span data-aos="fade-in" class="ui-g-12 ui-g-nopad">
+                                <p:commandButton id="botonVerLista" icon="fa fa-eye" action="#{listasReproduccionBean.verLista(l.idListaReproduccion)}" oncomplete="PF('modificarListaDialogo').show();"
+                                                 style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
+                                <p:tooltip for="botonVerLista" value="Ver listaReproduccion" position="top"/>
 
-                            <p:commandButton id="botonModificarLista" icon="fa fa-pencil-square-o" action="#{listasReproduccionBean.seleccionarLista(l.idListaReproduccion)}"
-                                             oncomplete="PF('modificarListaDialogo').show()"
-                                             style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
-                            <p:tooltip for="botonModificarLista" value="Modificar listaReproduccion" position="top"/>
+                                <p:commandButton id="botonModificarLista" icon="fa fa-pencil-square-o" action="#{listasReproduccionBean.seleccionarLista(l.idListaReproduccion)}"
+                                                 oncomplete="PF('modificarListaDialogo').show()"
+                                                 style="margin-right: 1em" styleClass="boton-warning-transparente-sin-borde"/>
+                                <p:tooltip for="botonModificarLista" value="Modificar listaReproduccion" position="top"/>
 
-                            <p:commandButton icon="fa fa-trash-o" id="botonEliminarLista" styleClass="boton-warning-transparente-sin-borde"
-                                             action="#{listasReproduccionBean.eliminarLista(l.idListaReproduccion)}" update="formListasReproduccion"/>
-                            <p:tooltip for="botonEliminarLista" value="Eliminar listaReproduccion" position="top" />
+                                <p:commandButton icon="fa fa-trash-o" id="botonEliminarLista" styleClass="boton-warning-transparente-sin-borde"
+                                                 action="#{listasReproduccionBean.eliminarLista(l.idListaReproduccion)}" update="formListasReproduccion"/>
+                                <p:tooltip for="botonEliminarLista" value="Eliminar listaReproduccion" position="top" />
+                            </span>
                         </p:column>
                     </p:dataTable>
 
